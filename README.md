@@ -1,7 +1,5 @@
 # SkyCast
 
-**Repository Name:** SkyCast  
-**Repository Description:**  
 SkyCast is a simple weather application built with Vanilla JavaScript, HTML, and CSS. Users can search for a city and immediately view current weather data fetched from a public API. The app emphasizes a clean user interface for quick and easy weather checks.
 
 ---
@@ -76,6 +74,8 @@ SkyCast can be integrated into a larger dashboard or embedded as a widget in ano
    cd SkyCast
    ```
 3. **Run the application:** Open the index.html file in your preferred browser.
+
+---
 
 ## Usage
 
