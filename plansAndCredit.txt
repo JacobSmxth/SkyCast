@@ -1,0 +1,22 @@
+Plans for the app:
+
+Core Features:
+
+1. Geolocation detection
+2. Manual location input
+3. API integration with OpenWeatherMap
+4. Data Parsing & Display
+5. Saved Locations Feature
+6. Error handling & User Feedback
+7. Responsive User interface
+
+
+
+Photo Credits:
+
+Horizontal image:
+Photo by <a href="https://unsplash.com/@wolfgang_hasselmann?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Wolfgang Hasselmann</a> on <a href="https://unsplash.com/photos/blue-sky-and-white-clouds-over-lake-bR_-gllg7Bs?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
+Vertical image:
+Photo by <a href="https://unsplash.com/@jbowersphotography?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Jonathan Bowers</a> on <a href="https://unsplash.com/photos/brown-grass-field-towards-trees-BqKdvJ8a5TI?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+      
