@@ -1,0 +1,204 @@
+/* CSS Reset */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Remove default list styling */
+ul,
+ol {
+    list-style: none;
+}
+
+/* CSS Variables */
+
+:root {
+    --transparentColor: rgba(63, 63, 63, 0.762);
+}
+
+/* Base styling */
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background: linear-gradient(3deg, rgba(255,255,255,1) 0%, rgba(22,88,102,1) 100%);
+    color: #fdfdfd;
+    line-height: 1.6;
+}
+
+/* Container styling */
+#container {
+    width: 95vw;
+    margin: 0 auto;
+    border: .3rem solid #fdfdfd;
+    background: url('./images/horizontalBackground.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* Header styling */
+header {
+    font-size: 7rem;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    background-color: var(--transparentColor);
+    color: #fdfdfd;
+    border-radius: 2rem;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+/* Main content area */
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 100%;
+    margin: 1rem;
+    gap: 1rem;
+}
+
+/* Section styling within main */
+main section {
+    background-color: var(--transparentColor);
+    padding: 1rem;
+    border-radius: 1rem;
+    flex: 1;
+}
+
+/* Input container */
+#inputContainer input {
+    width: 50vw;
+    max-width: 100%;
+    padding: 1rem;
+    border: none;
+    outline: none;
+    border-radius: 0;
+}
+
+/* Location info container inside a section */
+#locationInfoContainer {
+    width: 50vw;
+    max-width: 75vw;
+    padding: 0.5rem;
+}
+
+/* General location information grid */
+#generalLocationInfo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+    "temp loc"
+    "weather weather"
+    "wind wind"
+    "air air";
+    gap: 0.5rem;
+    align-items: center;
+}
+
+  /* Temperature: large font in top left */
+#temperatureVal {
+    grid-area: temp;
+    font-size: 3rem;
+}
+
+  /* Location: slightly smaller, right-aligned in top row */
+#locationVal {
+    grid-area: loc;
+    font-size: 2rem;
+    text-align: right;
+}
+
+/* Weather Type: centered, spanning both columns */
+#weatherType {
+    grid-area: weather;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+  /* Wind: centered, spanning both columns */
+#windVal {
+    grid-area: wind;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+/* Air Quality: centered, spanning both columns */
+#airQual {
+    grid-area: air;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+/* Hourly weather section */
+#hourlyWeather {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+/* Hourly weather list items */
+#hourlyWeather li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #fdfdfd;
+    padding: 0.3rem;
+}
+
+/* Hourly weather typography */
+#hourlyWeather li h3 {
+    font-size: 1rem;
+}
+
+#hourlyWeather li h4 {
+    font-size: 1.3rem;
+}
+
+#hourlyWeather li p {
+    font-size: 0.75rem;
+}
+
+/* Weekly weather section (hidden by default) */
+#weeklyWeather {
+    display: none;
+}
+
+/* Saved Locations Sidebar */
+#locationList {
+    background-color: var(--transparentColor);
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 20vw;
+    max-width: 25vw;
+}
+
+#locationList h3 {
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+#locationList ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.locationItem {
+    background-color: var(--transparentColor);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+}
