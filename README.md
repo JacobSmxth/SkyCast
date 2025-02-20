@@ -16,9 +16,6 @@ SkyCast is a simple weather application built with Vanilla JavaScript, HTML, and
 - [Potential Features](#potential-features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Gitignore](#gitignore)
-- [License](#license)
-- [Contributing](#contributing)
 
 ---
 
@@ -40,7 +37,7 @@ SkyCast provides a straightforward way to check the current weather for any city
 
 - **HTML:** Basic page structure and layout.
 - **CSS:** Responsive styling with a minimal yet engaging design.
-- **JavaScript:** API calls, asynchronous operations, and DOM updates.
+- **Vanilla JavaScript:** API calls, asynchronous operations, and DOM updates.
 
 ---
 
