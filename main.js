@@ -43,48 +43,38 @@ async function initApp() {
     }
 }
 
+async function fetchJson(url) {
+    try {
+        const response = await fetch(url)
+        if (!response.ok) {
+            throw new Error(`Network error: ${response.status}`)
+        }
+        return await response.json()
+    } catch (error) {
+        console.error(`Error fetching ${url}: `, error)
+        return null
+    }
+}
+
 // Function to set location of 
-function setLocation(lat, long) {
+async function setLocation(lat, long) {
     const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,precipitation_probability,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,sunshine_duration,uv_index_max,precipitation_hours,precipitation_probability_max&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=auto`
 
     const geoUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&limit=1&appid=${API_key}`
 
+    const geoData = await fetchJson(geoUrl);
+    if (geoData) {
+        locationName.innerText = `${geoData[0].name}, ${geoData[0].state} in the ${geoData[0].country}`
+    }
 
-    fetch(geoUrl)
-        .then(response => {
-            if(!response.ok) {
-                throw new Error("Network is not ok")
-            }
-            return response.json()
-        })
-        .then(data => {
-            locationName.innerText = `${data[0].name}, ${data[0].state} in the ${data[0].country}`
-        })
-        .catch(error => {
-            console.error("Error: " + error)
-        })
+    const weatherData = await fetchJson(apiUrl);
+    if (weatherData) {
+        l(weatherData)
+        const {current, hourly} = weatherData;
 
-    fetch(apiUrl)
-        .then(response => {
-            if(!response.ok) {
-                throw new Error("Network was not ok")
-            }
-            return response.json()
-        })
-        .then(data => {
-            l(data)
-            const cur = data.current
-            const wind = cur.wind_speed_10m
-            const weather = cur.weather_code
-
-
-            setWeatherUi(cur.temperature_2m, weather, wind)
-
-            setHourlyUi(cur.time, data.hourly.time, data.hourly.temperature_2m, data.hourly.precipitation_probability)
-        })
-        .catch(error => {
-            console.error("Error: " + error)
-        })
+        setWeatherUi(current.temperature_2m, current.weather_code, current.wind_wspeed_10m)
+        setHourlyUi(current.time, hourly.time, hourly.temperature_2m, hourly.precipitation_probability)
+    }
 }
 
 
