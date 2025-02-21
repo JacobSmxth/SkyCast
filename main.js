@@ -60,11 +60,12 @@ async function fetchJson(url) {
 async function setLocation(lat, long) {
     const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,precipitation_probability,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,sunshine_duration,uv_index_max,precipitation_hours,precipitation_probability_max&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=auto`
 
-    const geoUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&limit=1&appid=${API_key}`
+    const geoUrl = `https://us1.api-bdc.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`
 
     const geoData = await fetchJson(geoUrl);
     if (geoData) {
-        locationName.innerText = `${geoData[0].name}, ${geoData[0].state} in the ${geoData[0].country}`
+        log(geoData)
+        locationName.innerText = `${geoData.locality}, ${geoData.principalSubdivisionCode.slice(3)}`
     }
 
     const weatherData = await fetchJson(apiUrl);
