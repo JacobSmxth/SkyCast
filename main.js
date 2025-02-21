@@ -165,7 +165,7 @@ function setHourlyUi(currentTime, timeArr, tempArr, precArr) {
         item.append(hrPrec)
 
         hrTime.innerText = thing.slice(11)
-        hrTemp.innerText = Math.round(tempArr[i]) + deg;
+        hrTemp.innerText = Math.round(newTempArr[i]) + deg;
         hrPrec.innerText = precArr[i] +"%"
 
         i++
