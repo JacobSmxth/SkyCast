@@ -2,13 +2,23 @@ Plans for the app:
 
 Core Features:
 
-1. Geolocation detection
-2. Manual location input
-3. API integration with OpenWeatherMap
-4. Data Parsing & Display
-5. Saved Locations Feature
-6. Error handling & User Feedback
-7. Responsive User interface
+Geolocation detection (Done)
+Manual location input (In Progress)
+API integration with OpenWeatherMap (Used different API, but mostly done)
+Data Parsing & Display (In Progress)
+Saved Locations Feature (Not started)
+Error handling & User Feedback (In Progress)
+Responsive User Interface (Not started)
+Dark Mode Toggle (Not started)
+Hourly Forecast Display with Interactive Graphs (Not started)
+Animated Weather Icons (Not started)
+Background Image Updates Based on Weather Conditions (Not started)
+Sunrise & Sunset Times Display (Not started)
+Air Quality Index & Pollution Levels (Not started)
+Customizable Notification Alerts for Weather Changes (Not started)
+Integration with Local News & Emergency Weather Alerts (Not started)
+
+Completely redo CSS (I'm not a fan of the current design)
 
 
 
@@ -17,6 +27,4 @@ Photo Credits:
 Horizontal image:
 Photo by <a href="https://unsplash.com/@wolfgang_hasselmann?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Wolfgang Hasselmann</a> on <a href="https://unsplash.com/photos/blue-sky-and-white-clouds-over-lake-bR_-gllg7Bs?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
 
-Vertical image:
-Photo by <a href="https://unsplash.com/@jbowersphotography?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Jonathan Bowers</a> on <a href="https://unsplash.com/photos/brown-grass-field-towards-trees-BqKdvJ8a5TI?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
       
