@@ -10,6 +10,7 @@ SkyCast is a simple weather application built with Vanilla JavaScript, HTML, and
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Concepts](#concepts)
+- [API Configuration](#api-configuration)
 - [Further Application](#further-application)
 - [Potential Features](#potential-features)
 - [Installation](#installation)
@@ -48,6 +49,21 @@ SkyCast provides a straightforward way to check the current weather for any city
 
 ---
 
+## API Configuration
+
+To fetch weather data, SkyCast relies on the [OpenWeatherMap API](https://openweathermap.org/). You must obtain an API key by creating an account on their website. Once you have your API key:
+
+1. Create a file named `config.js` in the project directory.
+2. Add the following line to `config.js`:
+
+   ```javascript
+   const API_key = "YOUR API KEY";
+   ```
+
+3. Replace `'YOUR API KEY'` with the actual API key provided by OpenWeatherMap.
+
+---
+
 ## Further Application
 
 SkyCast can be integrated into a larger dashboard or embedded as a widget in another project. It also serves as a foundation for exploring more advanced API consumption patterns and data caching techniques.
@@ -73,10 +89,13 @@ SkyCast can be integrated into a larger dashboard or embedded as a widget in ano
    ```bash
    cd SkyCast
    ```
-3. **Run the application:** Open the index.html file in your preferred browser.
+3. **Configure your API key:**  
+   Follow the steps in the [API Configuration](#api-configuration) section.
+4. **Run the application:**  
+   Open the `index.html` file in your preferred browser.
 
 ---
 
 ## Usage
 
-Simply open the index.html in your browser, enter a city name in the search bar, and view the current weather information.
+Simply open the `index.html` in your browser, enter a city name in the search bar, and view the current weather information. Make sure that the `config.js` file is properly set up with your OpenWeatherMap API key for the app to function correctly.
