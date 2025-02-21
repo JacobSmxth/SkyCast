@@ -72,7 +72,7 @@ async function setLocation(lat, long) {
         log(weatherData)
         const {current, hourly} = weatherData;
 
-        setWeatherUi(current.temperature_2m, current.weather_code, current.wind_wspeed_10m)
+        setWeatherUi(current.temperature_2m, current.weather_code, current.wind_speed_10m)
         setHourlyUi(current.time, hourly.time, hourly.temperature_2m, hourly.precipitation_probability)
     }
 }
@@ -80,6 +80,7 @@ async function setLocation(lat, long) {
 
 function setWeatherUi(temp, weather, wind) {
     tempVal.innerText = `${Math.round(temp)}${deg}`
+    log(wind)
     windVal.innerText = wind === 0 ? "No winds currently" : `${wind} mph winds`
 
 
