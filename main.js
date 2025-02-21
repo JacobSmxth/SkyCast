@@ -10,7 +10,7 @@ const deg = "°F"
 
 
 // simple function to make debugging easier and quicker
-function l(v) {
+function log(v) {
     console.log(v)
 }
 
@@ -69,7 +69,7 @@ async function setLocation(lat, long) {
 
     const weatherData = await fetchJson(apiUrl);
     if (weatherData) {
-        l(weatherData)
+        log(weatherData)
         const {current, hourly} = weatherData;
 
         setWeatherUi(current.temperature_2m, current.weather_code, current.wind_wspeed_10m)
@@ -79,49 +79,35 @@ async function setLocation(lat, long) {
 
 
 function setWeatherUi(temp, weather, wind) {
+    tempVal.innerText = `${Math.round(temp)}${deg}`
+    windVal.innerText = wind === 0 ? "No winds currently" : `${wind} mph winds`
 
-    const tempString = Math.round(temp) + deg
-    const windString = () => {
-        if(wind === 0) return "No winds currently"
-        else return `${wind} mph winds`
-    }
-    const weatherString = () => {
-        switch (weather) {
-            case 0:
-                return "Clear Skies"
-            case 1:
-                return "Mostly Clear"
-            case 2:
-                return "Partly Cloudy"
-            case 3:
-                return "Overcast"
-            case 45:
-            case 48:
-                return "Foggy"
-            case 51: 
-            case 53: 
-            case 55:
-                return "Drizzle"
-            case 56:
-            case 57:
-                return "Freezing Drizzle"
-            case 61:
-                return "Light Rain"
-            case 63:
-                return "Moderate Rain"
-            case 65:
-                return "Heavy Rain"
-            case 95:
-                return "Thunderstorms"
-            default:
-                return "Weathering weather"
-        }
+
+
+    const weatherString =  {
+        0: "Clear Skies",
+        1: "Mostly Clear",
+        2: "Partly Cloudy",
+        3: "Overcast",
+        45: "Foggy",
+        48: "Foggy",
+        51: "Drizzle",
+        53: "Drizzle",
+        55: "Drizzle",
+        56: "Freezing Drizzle",
+        57: "Freezing Drizzle",
+        61: "Light Rain",
+        63: "Moderate Rain",
+        65: "Heavy Rain",
+        95: "Thunderstorms",
     }
 
-    tempVal.innerText = tempString
-    weatherType.innerText = weatherString()
-    windVal.innerText = windString()
+    
+    weatherType.innerText = weatherString[weather] || "Weathering Weather"
 }
+
+    
+
 
 function setHourlyUi(currentTime, timeArr, tempArr, precArr) {
 
