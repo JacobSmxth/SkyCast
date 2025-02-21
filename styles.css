@@ -82,36 +82,27 @@ main section {
 
 /* Location info container inside a section */
 #locationInfoContainer {
-    width: 50vw;
+    width: 100%;
     max-width: 75vw;
     padding: 0.5rem;
 }
 
 /* General location information grid */
 #generalLocationInfo {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto auto;
-    grid-template-areas:
-    "temp loc"
-    "weather weather"
-    "wind wind"
-    "air air";
+    display: flex;
+    flex-direction: column;
     gap: 0.5rem;
-    align-items: center;
+    align-items: left;
 }
 
   /* Temperature: large font in top left */
 #temperatureVal {
-    grid-area: temp;
-    font-size: 3rem;
+    font-size: 5rem;
 }
 
   /* Location: slightly smaller, right-aligned in top row */
 #locationVal {
-    grid-area: loc;
     font-size: 2rem;
-    text-align: right;
 }
 
 /* Weather Type: centered, spanning both columns */
@@ -126,15 +117,6 @@ main section {
   /* Wind: centered, spanning both columns */
 #windVal {
     grid-area: wind;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: left;
-}
-
-/* Air Quality: centered, spanning both columns */
-#airQual {
-    grid-area: air;
     font-size: 1rem;
     display: flex;
     align-items: center;
