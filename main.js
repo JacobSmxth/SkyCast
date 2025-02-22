@@ -3,7 +3,8 @@ const locationInput = document.querySelector("#locationInput");
 const weatherType = document.querySelector("#weatherType");
 const windVal = document.querySelector("#windVal");
 const locationName = document.querySelector('#locationName')
-
+const locInput = document.querySelector('#locationInput')
+const suggestionsContainer = document.querySelector('#suggestions')
 const hrContainer = document.querySelector("#hourlyWeather")
 
 const deg = "°F"
@@ -59,7 +60,6 @@ async function fetchJson(url) {
 // Function to set location of 
 async function setLocation(lat, long) {
     const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,precipitation_probability,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,sunshine_duration,uv_index_max,precipitation_hours,precipitation_probability_max&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=auto`
-
     const geoUrl = `https://us1.api-bdc.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`
 
     const geoData = await fetchJson(geoUrl);
@@ -147,10 +147,98 @@ function setHourlyUi(currentTime, timeArr, tempArr, precArr) {
     `;
     })
     hrContainer.innerHTML = html;
-    toNormalTime("13:00")
-
 }
 
+// async function setDailyUi(data) {
+//     const date = new Date();
+//     let today = date.getDay();
+
+    
+// }
+
+
+
+function debounce(fun, delay) {
+    let timeout
+    return function(...args) {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => fun.apply(this, args), delay)
+    }
+}
+
+function checkFetchSuggestions(query) {
+    return query.length >= 3
+}
+
+function clearSuggestions() {
+    suggestionsContainer.classList.remove("toggle")
+    suggestionsContainer.innerHTML = ''
+}
+
+async function fetchSuggestionsData(query) {
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&addressdetails=1&limit=5`
+    const response = await fetch(url, {
+        headers: {
+            'User-Agent': 'SkyCast/0.4'
+        }
+    })
+    const data = await response.json()
+    console.log("Fetched suggestions:", data);
+    return data
+}
+
+function createSuggestionItem(result) {
+    const item = document.createElement('div')
+    item.classList.add('suggestion-item')
+    item.textContent = result.display_name
+    item.addEventListener('click', () => {
+        locInput.value = result.display_name
+        clearSuggestions()
+        suggestionsContainer.classList.remove('toggle')
+        setLocation(result.lat, result.lon)
+        locInput.value = ""
+    });
+    return item
+}
+
+function renderSuggestions(data) {
+    suggestionsContainer.classList.add('toggle')
+    suggestionsContainer.innerHTML = ''
+    data.forEach(result => {
+        const item = createSuggestionItem(result)
+        suggestionsContainer.appendChild(item)
+    })
+}
+
+async function fetchSuggestions(query) {
+    if (!checkFetchSuggestions(query)) {
+        clearSuggestions();
+        return
+    }
+
+    try {
+        const data = await fetchSuggestionsData(query)
+        renderSuggestions(data)
+    } catch (error) {
+        console.error("Error fetching suggestions: ", error)
+    }
+}
+
+
+document.addEventListener('click', (e) => {
+    if(!suggestionsContainer.contains(e.target) && e.target !== locInput) {
+        suggestionsContainer.innerHTML = ''
+        suggestionsContainer.classList.remove('toggle')
+    }
+})
+
+
+locInput.addEventListener('input', debounce(async (e) => {
+    const query = e.target.value.trim();
+    await fetchSuggestions(query)
+}, 300))
+
 initApp()
+
 
 
