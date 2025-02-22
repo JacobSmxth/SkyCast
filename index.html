@@ -5,54 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkyCast</title>
     <link rel="stylesheet" href="styles.css">
+    
+    <script src="slider.js" defer></script>
     <script src="main.js" defer></script>
 </head>
 <body>
     <div id="container">
         <header>
         <h1>SkyCast</h1>
+
+        <!-- <button id="dark-mode"></button> -->
+        
+            <data id="inputContainer">
+                <input type="text" id="locationInput" placeholder="Enter a location">
+                <div id="searchIcon"></div>
+                <div id="savedLocations">
+                    <h3>Saved Locations</h3>
+                    <ul id="locationList">
+                        <li class="weather-item">
+                            <h2 class="location-name">City Name</h2>
+                            <div class="weather-stats">
+                                <p class="temp">25°C</p>
+                                <p class="wind"><span class="windIcon"></span>15 km/h</p>
+                                <p class="precipitationChance"><span class="precipitationIcon"></span>20%</p>
+                                <p class="weatherType">Sunny<span class="weatherIcon"></span></p>
+                            </div>
+                        </li> 
+                        <!-- Additional saved location items -->
+                    </ul>
+                </div>
+            </data>
         </header>
         <main>
         <!-- Weather Display Section -->
-        <section id="weatherDisplay">
-            <div id="inputContainer">
-            <input type="text" id="locationInput" placeholder="Enter a location">
-            <button id="searchButton"></button>
-            </div>
-            <div id="locationInfoContainer">
-                <div id="generalLocationInfo">
-                    <h2 id="temperatureVal">0°<span id="tempType">F</span></h2>
-                    <h3 id="locationVal">Location Name</h3>
-                    <p id="weatherType"><span id="weatherIcon">...</span> Mostly Cloudy</p>
-                    <p id="windVal">7 mph</p>
-                </div>
-                <ul id="hourlyWeather">
-                    <!-- Additional hourly items go here -->
-                </ul>
-                <ul id="weeklyWeather">
-                    <li>
-                    <div class="dayStuff">
-                        <h3 class="weekDay">Day</h3>
-                        <h4 class="exactWeekDay">x/xx</h4>
+            <section id="weatherDisplay">
+                <div id="locationInfoContainer">
+                    <div id="generalLocationInfo">
+                        <h3 id="locationName">Location Name</h3>
+                        <h2 id="temperatureVal">0°<span id="tempType">F</span></h2>
+                        <p id="weatherType"><span id="weatherIcon">...</span> Mostly Cloudy</p>
+                        <p id="windVal">7 mph</p>
                     </div>
-                    <h3 class="weekTempVal">0°</h3>
-                    <p class="weekWeatherType">Some Clouds</p>
-                    <p class="humidity">0%</p>
-                    </li>
-                    <!-- Additional weekly items go here -->
-                </ul>
-            </div>
-        </section>
+
+                    <!-- Hourly Weather Slider -->
+                    <div class="hourlySlider">
+                        <div class="sliderContainer">
+                            <button class="slider-btn left" id="scrollLeft">&larr;</button>
+                            <div class="slider-wrapper">
+                                <ul id="hourlyWeather">
+                                <!-- Additional hourly items go here -->
+                                </ul>
+                            </div>
+                            <button class="slider-btn right" id="scrollRight">&rarr;</button>
+                        </div>
+                    </div>
+                    <ul id="weeklyWeather">
+                        <li>
+                            <div class="dayStuff">
+                                <h3 class="weekDay">Day</h3>
+                                <h4 class="exactWeekDay">x/xx</h4>
+                            </div>
+                            <h3 class="weekTempVal">0°</h3>
+                            <p class="weekWeatherType">Some Clouds</p>
+                            <p class="weekPrecipationChance">0%</p>
+                        </li>
+                        
+                        <!-- Additional weekly items go here -->
+                    </ul>
+                </div>
+            </section>
         
         <!-- Saved Locations Sidebar -->
-        <aside id="locationList">
-            <h3>Saved Locations</h3>
-            <ul>
-                <li class="locationItem">...</li>
-                <!-- Additional saved location items -->
-            </ul>
-        </aside>
+        
         </main>
     </div>
+    <footer> © 2025 SkyCast. Designed by Jacob Smith </footer>
 </body>
 </html>

@@ -2,7 +2,7 @@ const tempVal = document.querySelector("#temperatureVal");
 const locationInput = document.querySelector("#locationInput");
 const weatherType = document.querySelector("#weatherType");
 const windVal = document.querySelector("#windVal");
-const locationName = document.querySelector('#locationVal')
+const locationName = document.querySelector('#locationName')
 
 const hrContainer = document.querySelector("#hourlyWeather")
 
@@ -108,48 +108,46 @@ function setWeatherUi(temp, weather, wind) {
     weatherType.innerText = weatherString[weather] || "Weathering Weather"
 }
 
-    
 
+function toNormalTime(time) {
+    let val = parseInt(time.split(":")[0])
+
+    if (val === 0) {
+        return "12AM"
+    } else if (val > 12) {
+        return val-12 + "PM"
+    } else if (val === 12) {
+        return val + "PM"
+    } else{
+        return val + "AM"
+    }
+}
 
 function setHourlyUi(currentTime, timeArr, tempArr, precArr) {
 
-    let newTimeArr = []
-    let newTempArr = []
-
-
-
-    for(let i = 0; i < timeArr.length; i++) {
+    let forecastData = [];
+    for (let i = 0; i < timeArr.length; i++) {
         if (timeArr[i] > currentTime) {
-            newTimeArr.push(timeArr[i])
-            newTempArr.push(tempArr[i])
+            forecastData.push({
+                time: timeArr[i],
+                temp: tempArr[i],
+                prec: precArr[i]
+            })
         }
     }
-    let i = 0;
-    newTimeArr.slice(0, 10).forEach(thing => {
-    
-        const item = document.createElement('li')
-        const hrTime = document.createElement('h3')
-        const hrTemp = document.createElement('h4')
-        const hrPrec = document.createElement('p')
 
-        item.className = "hour"
-        hrTime.className = "hourTime"
-        hrTemp.className = "hourTempVal"
-        hrPrec.className = "hourHumidity"
-
-        hrContainer.append(item)
-        item.append(hrTime)
-        item.append(hrTemp)
-        item.append(hrPrec)
-
-        hrTime.innerText = thing.slice(11)
-        hrTemp.innerText = Math.round(newTempArr[i]) + deg;
-        hrPrec.innerText = precArr[i] +"%"
-
-        i++
+    let html = '';
+    forecastData.slice(0,15).forEach((entry, index) => {
+        html += `
+        <li class="hour">
+            <h3 class="hourTime">${toNormalTime(entry.time.slice(11))}</h3>
+            <h4 class="hourTempVal">${Math.round(entry.temp)}°</h4>
+            <p class="hourPrecipitationChance">${entry.prec}%</p>
+        </li>
+    `;
     })
-
-
+    hrContainer.innerHTML = html;
+    toNormalTime("13:00")
 
 }
 
