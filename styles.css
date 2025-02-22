@@ -89,12 +89,25 @@ header {
 
 header h1 {
     position: sticky;
+    display: flex;
+    align-items: center;
     top: 0;
     padding: .5rem 1rem;
-    text-shadow: 2px 2px 4px #000;
+    text-shadow: 2px 2px 1px #000;
     font-size: var(--fontSize-h1-large);
     z-index: 10;
 }
+
+#logo {
+    position: relative;
+    top: 50%;
+    bottom: 50%;
+    background: url(./icons/file.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 3rem;
+}
+
 
 #inputContainer {
     position: relative;
