@@ -3,14 +3,14 @@ Plans for the app:
 Core Features:
 
 Geolocation detection (Done)
-Manual location input (In Progress)
-API integration with OpenWeatherMap (Used different API, but mostly done)
-Data Parsing & Display (In Progress)
+Manual location input (Done)
+API integration with OpenWeatherMap (Done)
+Data Parsing & Display (Partial)
 Saved Locations Feature (Not started)
 Error handling & User Feedback (In Progress)
 Responsive User Interface (Not started)
 Dark Mode Toggle (Not started)
-Hourly Forecast Display with Interactive Graphs (Not started)
+Hourly Forecast Display with Interactive Graphs (Hourly)
 Animated Weather Icons (Not started)
 Background Image Updates Based on Weather Conditions (Not started)
 Sunrise & Sunset Times Display (Not started)
@@ -18,7 +18,7 @@ Air Quality Index & Pollution Levels (Not started)
 Customizable Notification Alerts for Weather Changes (Not started)
 Integration with Local News & Emergency Weather Alerts (Not started)
 
-Completely redo CSS (I'm not a fan of the current design)
+Completely redo CSS (Yup)
 
 
 

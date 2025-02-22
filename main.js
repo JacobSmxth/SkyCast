@@ -3,7 +3,6 @@ const locationInput = document.querySelector("#locationInput");
 const weatherType = document.querySelector("#weatherType");
 const windVal = document.querySelector("#windVal");
 const locationName = document.querySelector('#locationName')
-const locInput = document.querySelector('#locationInput')
 const suggestionsContainer = document.querySelector('#suggestions')
 const hrContainer = document.querySelector("#hourlyWeather")
 
@@ -192,11 +191,11 @@ function createSuggestionItem(result) {
     item.classList.add('suggestion-item')
     item.textContent = result.display_name
     item.addEventListener('click', () => {
-        locInput.value = result.display_name
+        locationInput.value = result.display_name
         clearSuggestions()
         suggestionsContainer.classList.remove('toggle')
         setLocation(result.lat, result.lon)
-        locInput.value = ""
+        locationInput.value = ""
     });
     return item
 }
@@ -226,14 +225,13 @@ async function fetchSuggestions(query) {
 
 
 document.addEventListener('click', (e) => {
-    if(!suggestionsContainer.contains(e.target) && e.target !== locInput) {
-        suggestionsContainer.innerHTML = ''
-        suggestionsContainer.classList.remove('toggle')
+    if(!suggestionsContainer.contains(e.target) && e.target !== locationInput) {
+        clearSuggestions()
     }
 })
 
 
-locInput.addEventListener('input', debounce(async (e) => {
+locationInput.addEventListener('input', debounce(async (e) => {
     const query = e.target.value.trim();
     await fetchSuggestions(query)
 }, 300))
