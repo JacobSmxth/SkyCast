@@ -20,8 +20,3 @@ Core Features:
 
 Additional:
 - Completely Redo CSS (Yup – in progress)
-
-Photo Credits:
-
-Horizontal image:
-Photo by <a href="https://unsplash.com/@wolfgang_hasselmann?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Wolfgang Hasselmann</a> on <a href="https://unsplash.com/photos/blue-sky-and-white-clouds-over-lake-bR_-gllg7Bs?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
