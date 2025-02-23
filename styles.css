@@ -537,6 +537,10 @@ footer {
     text-align: center;
 }
 
+footer a {
+    color: var(--colorWhite)
+}
+
 
 /* Media Queries */
 

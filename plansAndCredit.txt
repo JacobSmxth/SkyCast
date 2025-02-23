@@ -1,30 +1,27 @@
-Plans for the app:
+Plans for the App:
 
 Core Features:
 
-Geolocation detection (Done)
-Manual location input (Done)
-API integration with OpenWeatherMap (Done)
-Data Parsing & Display (Partial)
-Saved Locations Feature (Not started)
-Error handling & User Feedback (In Progress)
-Responsive User Interface (Not started)
-Dark Mode Toggle (Not started)
-Hourly Forecast Display with Interactive Graphs (Hourly)
-Animated Weather Icons (Not started)
-Background Image Updates Based on Weather Conditions (Not started)
-Sunrise & Sunset Times Display (Not started)
-Air Quality Index & Pollution Levels (Not started)
-Customizable Notification Alerts for Weather Changes (Not started)
-Integration with Local News & Emergency Weather Alerts (Not started)
+- Geolocation Detection (Done)
+- Manual Location Input (Done)
+- API Integration (Transitioned from OpenWeatherMap to Open-Meteo) (Done)
+- Data Parsing & Display (Partial – refining data presentation)
+- Saved Locations Feature (Not Started)
+- Error Handling & User Feedback (In Progress)
+- Responsive User Interface (Not Started)
+- Dark Mode Toggle (Not Started)
+- Hourly Forecast Display (Hourly data is available; interactive graphs planned)
+- Animated Weather Icons (Not Started)
+- Background Image Updates Based on Weather Conditions (Not Started)
+- Sunrise & Sunset Times Display (Not Started)
+- Air Quality Index & Pollution Levels (Not Started)
+- Customizable Notification Alerts for Weather Changes (Not Started)
+- Integration with Local News & Emergency Weather Alerts (Not Started)
 
-Completely redo CSS (Yup)
-
-
+Additional:
+- Completely Redo CSS (Yup – in progress)
 
 Photo Credits:
 
 Horizontal image:
 Photo by <a href="https://unsplash.com/@wolfgang_hasselmann?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Wolfgang Hasselmann</a> on <a href="https://unsplash.com/photos/blue-sky-and-white-clouds-over-lake-bR_-gllg7Bs?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
-
-      
