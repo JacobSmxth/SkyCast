@@ -1,11 +1,21 @@
+// ======================
+// DOM Elements
+// ======================
+
+// Weather Display Elements
+const locationName = document.querySelector('#locationName')
 const tempVal = document.querySelector("#temperatureVal");
-const locationInput = document.querySelector("#locationInput");
 const weatherType = document.querySelector("#weatherType");
 const windVal = document.querySelector("#windVal");
-const locationName = document.querySelector('#locationName')
+
+// User Input & Suggestions
+const locationInput = document.querySelector("#locationInput");
 const suggestionsContainer = document.querySelector('#suggestions')
+
+// Hourly Weather Display
 const hrContainer = document.querySelector("#hourlyWeather")
 
+// Weekly Weather Display
 const weeklyContainer = document.querySelector("#weeklyWeather")
 const weeklyDay = document.querySelector(".weekDay")
 const weeklyDate = document.querySelector(".exactWeekDay")
@@ -16,26 +26,65 @@ const weekSunset = document.querySelector(".sunset")
 const weekPrecChance = document.querySelector(".weekPrecipitationChance")
 const weekUVIndex = document.querySelector(".weekUVIndex")
 
+// Saved Locations
 const saveBtn = document.querySelector("#saveLocation")
 const locationList = document.querySelector('#locationList')
+
+// ==================
+//  Constants
+// ==================
 
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 const deg = "°F"
 
-let savedLocations = JSON.parse(localStorage.getItem('locations') || "[]");
 
+// =========================
+//  Global Variables
+// =========================
+
+let savedLocations = JSON.parse(localStorage.getItem('locations') || "[]");
 let lastLatitude
 let lastLongitude
 
-// simple function to make debugging easier and quicker
+
+
+
+
+
+/**
+ * Simply to let me type logs quicker
+ * 
+ * @param {any} v - The value I'm trying to log
+ * 
+ * @returns {void}
+ */
 function log(v) {
     console.log(v)
 }
 
+/**
+ * Returns the number of days in a specific month of a given year
+ * 
+ * @param {number} year - The year 
+ * @param {number} month - The month
+ * 
+ * @returns {number} The number of days in the month specified
+ */
 function daysInMonth(year, month) {
     return new Date(year, month, 0).getDate()
 }
 
+/**
+ * Retrieves information about the current date.
+ * 
+ * This function creates a Date object for the current month and extracts several
+ * properties such as the numeric day of the week, month, year, and the day of the month.
+ * It then returns an object containing these values as strings along with the name of the day
+ * The name of the day is from the global array "dayNames"
+ * 
+ * 
+ * @returns {Object} An object with many properties
+ */
 function getTodaysDate() {
     const date = new Date()
     const weekday = date.getDay()
@@ -55,6 +104,7 @@ function getTodaysDate() {
 
     return dateInfo
 }
+
 
 function getCoords() {
     return new Promise((resolve, reject) => {
@@ -383,10 +433,26 @@ function removeSavedLocation(lat, lon) {
     setSavedLocation();
 }
 
+/** 
+ * Adds a saved weather element to the location list in the DOM
+ * 
+ * This function creates a new list item element that represents a saved location and its corresponding weather stuff,
+ * sets its inner HTML using the provided parameters, and appends it to the locationList element.
+ * 
+ * @param {string} name - The name of the location
+ * @param {string} abr - The abbreviated form of the location's state or region
+ * @param {number | string} temp - The current temperature for the location.
+ * @param {number | string} weather - The weather code for the location (will be coverted to string)
+ * @param {number|string} wind - The wind speed at the location.
+ * @param {number|string} prec - The precipitation chance percentage.
+ * @param {number|string} lat - The latitude of the location. @param {number|string} lon - The longitude of the location. 
+ * 
+ * @returns {void}
+*/
 function addSavedElement(name, abr, temp, weather, wind, prec, lat, lon) {
     const li = document.createElement('li');
     li.className = 'weather-item';
-    li.setAttribute('data-id', `${lat},${lon}`);
+    li.setAttribute('data-id', `${lat},${lon}`); // THis was giving trouble, had to change from setting everything in a innerHTML
     li.innerHTML = `
         <h2 class="location-name">${name}, ${abr}</h2>
         <button class="remove-btn"></button>
