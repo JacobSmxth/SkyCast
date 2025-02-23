@@ -181,6 +181,7 @@ header h1 {
     max-width: 100%;
     width: 40vw;
     margin-top: 1rem;
+    justify-content: center;
 }
 
 #locationList {
@@ -188,22 +189,26 @@ header h1 {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    justify-content: center;
 }
 
 .remove-btn {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
+
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
     padding: 0;
+
     background: var(--colorPrimary);
     color: var(--colorWhite);
     border: 1px solid var(--colorAccent);
     font-size: 1rem;
     font-weight: bold;
     line-height: 1;
+
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
 }
@@ -220,6 +225,7 @@ header h1 {
 
 /* Weather Cards */
 .weather-item {
+    position: relative; 
     flex: 1 1 200px;
     max-width: 15rem;
     background: var(--colorCardBackgrounds);
