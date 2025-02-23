@@ -53,9 +53,7 @@ let lastLongitude
 
 /**
  * Simply to let me type logs quicker
- * 
  * @param {any} v - The value I'm trying to log
- * 
  * @returns {void}
  */
 function log(v) {
@@ -64,10 +62,8 @@ function log(v) {
 
 /**
  * Returns the number of days in a specific month of a given year
- * 
  * @param {number} year - The year 
  * @param {number} month - The month
- * 
  * @returns {number} The number of days in the month specified
  */
 function daysInMonth(year, month) {
@@ -76,12 +72,11 @@ function daysInMonth(year, month) {
 
 /**
  * Retrieves information about the current date.
- * 
+ *
  * This function creates a Date object for the current month and extracts several
  * properties such as the numeric day of the week, month, year, and the day of the month.
  * It then returns an object containing these values as strings along with the name of the day
  * The name of the day is from the global array "dayNames"
- * 
  * 
  * @returns {Object} An object with many properties
  */
@@ -105,7 +100,11 @@ function getTodaysDate() {
     return dateInfo
 }
 
-
+/**
+ * Obtains the user's current geographic coordinates using the Geolocation API.
+ *
+ * @returns {Promise} A promise that resolves with the position data.
+ */
 function getCoords() {
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
@@ -120,6 +119,12 @@ function getCoords() {
     })
 }
 
+/**
+ * Initializes the application by obtaining the user's coordinates and setting the location.
+ *
+ * @async
+ * @returns {Promise}
+ */
 async function initApp() {
     try {
         const position = await getCoords()
@@ -134,6 +139,13 @@ async function initApp() {
     }
 }
 
+/**
+ * Fetches JSON data from the provided URL.
+ *
+ * @async
+ * @param {string} url - The URL to fetch data from.
+ * @returns {Promise} The parsed JSON data, or null if an error occurs.
+ */
 async function fetchJson(url) {
     try {
         const response = await fetch(url)
@@ -147,6 +159,14 @@ async function fetchJson(url) {
     }
 }
 
+/**
+ * Fetches weather and geographical data concurrently for the specified coordinates.
+ *
+ * @async
+ * @param {number|string} lat - The latitude.
+ * @param {number|string} long - The longitude.
+ * @returns {Promise} An promise resulting in object containing weather and geo data.
+ */
 async function fetchWeatherAndGeoData(lat, long) {
     const weatherApiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,precipitation_probability,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,sunshine_duration,uv_index_max,precipitation_hours,precipitation_probability_max&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=auto`
     const geoApiUrl = `https://us1.api-bdc.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`
@@ -159,6 +179,15 @@ async function fetchWeatherAndGeoData(lat, long) {
     return {weatherData, geoData};
 }
 
+/**
+ * Sets the current location by fetching weather and geographical data for the given coordinates,
+ * then updates the UI accordingly.
+ *
+ * @async
+ * @param {number|string} lat - The latitude.
+ * @param {number|string} long - The longitude.
+ * @returns {Promise}
+ */
 async function setLocation(lat, long) {
     const {weatherData, geoData } = await fetchWeatherAndGeoData(lat, long)
     if (weatherData && geoData) {
@@ -170,6 +199,14 @@ async function setLocation(lat, long) {
     }
 }
 
+/**
+ * Fetches weather and geo data for a saved location and returns a simplified data object.
+ *
+ * @async
+ * @param {number|string} lat - The latitude of the saved location.
+ * @param {number|string} long - The longitude of the saved location.
+ * @returns {Promise} A promise resulting in object with location weather details or null on error.
+ */
 async function fetchSavedLocationData(lat, long) {
     const {weatherData, geoData } = await fetchWeatherAndGeoData(lat, long)
     if (weatherData && geoData) {
@@ -194,6 +231,13 @@ async function fetchSavedLocationData(lat, long) {
 
 }
 
+/**
+ * Creates a debounced version of a function that delays its execution.
+ *
+ * @param {Function} fun - The function to debounce.
+ * @param {number} delay - The delay in milliseconds.
+ * @returns {Function} The debounced function.
+ */
 function debounce(fun, delay) {
     let timeout
     return function(...args) {
@@ -202,15 +246,33 @@ function debounce(fun, delay) {
     }
 }
 
+/**
+ * Checks if the input query is long enough to fetch suggestions.
+ *
+ * @param {string} query - The input query string.
+ * @returns {boolean} Checks if query is atleast 3, if its not returns false
+ */
 function checkFetchSuggestions(query) {
     return query.length >= 3
 }
 
+/**
+ * Clears the suggestions from the UI.
+ *
+ * @returns {void}
+ */
 function clearSuggestions() {
     suggestionsContainer.classList.remove("toggle")
     suggestionsContainer.innerHTML = ''
 }
 
+/**
+ * Fetches location suggestions data from the OpenStreetMap Nominatim API.
+ *
+ * @async
+ * @param {string} query - The search query.
+ * @returns {Promise} A promise resulting in array of suggestion result objects.
+ */
 async function fetchSuggestionsData(query) {
     const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&addressdetails=1&limit=5`
     const response = await fetch(url, {
@@ -223,6 +285,12 @@ async function fetchSuggestionsData(query) {
     return data
 }
 
+/**
+ * Creates a DOM element representing a single suggestion item.
+ *
+ * @param {Object} result - The suggestion result object.
+ * @returns {HTMLElement} The suggestion item element.
+ */
 function createSuggestionItem(result) {
     const item = document.createElement('div')
     item.classList.add('suggestion-item')
@@ -237,6 +305,12 @@ function createSuggestionItem(result) {
     return item
 }
 
+/**
+ * Renders suggestion items in the suggestions container.
+ *
+ * @param {Array} data - Array of suggestion result objects.
+ * @returns {void}
+ */
 function renderSuggestions(data) {
     suggestionsContainer.classList.add('toggle')
     suggestionsContainer.innerHTML = ''
@@ -246,6 +320,13 @@ function renderSuggestions(data) {
     })
 }
 
+/**
+ * Fetches and renders location suggestions based on the user's query.
+ *
+ * @async
+ * @param {string} query - The input query string.
+ * @returns {Promise}
+ */
 async function fetchSuggestions(query) {
     if (!checkFetchSuggestions(query)) {
         clearSuggestions();
@@ -260,6 +341,12 @@ async function fetchSuggestions(query) {
     }
 }
 
+/**
+ * Converts a weather code into a human-readable description.
+ *
+ * @param {number} code - The weather code.
+ * @returns {string|undefined} The corresponding weather description, or undefined if not found.
+ */
 function checkWeatherCode(code) {
     const weatherString =  {
         0: "Clear Skies",
@@ -282,6 +369,14 @@ function checkWeatherCode(code) {
     return weatherString[code]
 }
 
+/**
+ * Updates the UI with current weather information.
+ *
+ * @param {number} temp - The current temperature.
+ * @param {number} weather - The weather code.
+ * @param {number} wind - The wind speed.
+ * @returns {void}
+ */
 function setWeatherUi(temp, weather, wind) {
     tempVal.innerText = `${Math.round(temp)}${deg}`
     windVal.innerText = wind === 0 ? "No winds currently" : `${wind} mph winds`
@@ -289,8 +384,14 @@ function setWeatherUi(temp, weather, wind) {
     weatherType.innerText = checkWeatherCode(weather) || "Weathering Weather"
 }
 
+/**
+ * Converts a 24-hour time string to a 12-hour format.
+ *
+ * @param {string} time - The time string (e.g., "13:00:00").
+ * @returns {string} The formatted time string (e.g., "1PM").
+ */
 function toNormalTime(time) {
-    let val = parseInt(time.split(":")[0])
+    let val = parseInt(time.split(":")[0]) // I did it this way since I will not need any minutes part of the time
 
     if (val === 0) {
         return "12AM"
@@ -303,6 +404,15 @@ function toNormalTime(time) {
     }
 }
 
+/**
+ * Updates the hourly forecast UI with upcoming weather data.
+ *
+ * @param {string} currentTime - The current time string.
+ * @param {Array} timeArr - Array of time strings for the forecast.
+ * @param {Array} tempArr - Array of temperature values for each hour.
+ * @param {Array} precArr - Array of precipitation percentages for each hour.
+ * @returns {void}
+ */
 function setHourlyUi(currentTime, timeArr, tempArr, precArr) {
 
     let forecastData = [];
@@ -329,10 +439,23 @@ function setHourlyUi(currentTime, timeArr, tempArr, precArr) {
     hrContainer.innerHTML = html;
 }
 
+/**
+ * Checks if a given day value is valid within the maximum number of days in the month.
+ *
+ * @param {number|string} day - The day to check.
+ * @param {number|string} maxDays - The maximum number of days in the month.
+ * @returns {boolean} returns true if the day is within the valid range, otherwise it's false.
+ */
 function stillValidDay(day, maxDays) {
     return  day <= parseInt(maxDays) 
 }
 
+/**
+ * Updates the UI with daily weather forecast data.
+ *
+ * @param {Object} data - The weather data object containing daily forecast information.
+ * @returns {void}
+ */
 function setDailyUi(data) {
     const dailyData = data.daily;
     const {precipitation_probability_max, sunrise, sunset, temperature_2m_max, temperature_2m_min, uv_index_max, weather_code} = dailyData;
@@ -387,6 +510,13 @@ function setDailyUi(data) {
     weeklyContainer.innerHTML = html
 }
 
+/**
+ * Updates the main UI with current, hourly, and daily weather information.
+ *
+ * @param {Object} data1 - The weather data object containing current, hourly, and daily information.
+ * @param {Object} data2 - The geographical data object containing location details.
+ * @returns {void}
+ */
 function setUi(data1, data2) {
     const { current, hourly, daily } = data1;
     locationName.innerText = `${data2.locality}, ${data2.principalSubdivisionCode.slice(3)}`
@@ -396,6 +526,13 @@ function setUi(data1, data2) {
     setDailyUi(data1)
 }
 
+/**
+ * Saves the current location to localStorage if it is not already present.
+ *
+ * @param {number|string} lat - The latitude.
+ * @param {number|string} long - The longitude.
+ * @returns {void}
+ */
 function saveLocation(lat, long) {
     const coords = { lat: parseFloat(lat), long: parseFloat(long) };
     const tolerance = 0.001;
@@ -412,6 +549,12 @@ function saveLocation(lat, long) {
     }
 }
 
+/**
+ * Retrieves saved locations from localStorage, fetches their weather data, and updates the UI.
+ *
+ * @async
+ * @returns {Promise}
+ */
 async function setSavedLocation() {
     locationList.innerHTML = '';
     for (const location of savedLocations) {
@@ -421,6 +564,13 @@ async function setSavedLocation() {
     }
 }
 
+/**
+ * Removes a saved location from localStorage and updates the UI.
+ *
+ * @param {number|string} lat - The latitude of the location to remove.
+ * @param {number|string} lon - The longitude of the location to remove.
+ * @returns {void}
+ */
 function removeSavedLocation(lat, lon) {
     log("Removing: ", lat, lon);
     const latNum = parseFloat(lat);
@@ -434,21 +584,22 @@ function removeSavedLocation(lat, lon) {
 }
 
 /** 
- * Adds a saved weather element to the location list in the DOM
+ * Adds a saved weather element to the location list in the DOM.
  * 
- * This function creates a new list item element that represents a saved location and its corresponding weather stuff,
+ * This function creates a new list item element that represents a saved location and its corresponding weather data,
  * sets its inner HTML using the provided parameters, and appends it to the locationList element.
  * 
- * @param {string} name - The name of the location
- * @param {string} abr - The abbreviated form of the location's state or region
- * @param {number | string} temp - The current temperature for the location.
- * @param {number | string} weather - The weather code for the location (will be coverted to string)
- * @param {number|string} wind - The wind speed at the location.
+ * @param {string} name - The name of the location.
+ * @param {string} abr - The abbreviated state or region of the location.
+ * @param {number|string} temp - The current temperature.
+ * @param {number|string} weather - The weather code (to be converted to a description).
+ * @param {number|string} wind - The wind speed.
  * @param {number|string} prec - The precipitation chance percentage.
- * @param {number|string} lat - The latitude of the location. @param {number|string} lon - The longitude of the location. 
+ * @param {number|string} lat - The latitude.
+ * @param {number|string} lon - The longitude.
  * 
  * @returns {void}
-*/
+ */
 function addSavedElement(name, abr, temp, weather, wind, prec, lat, lon) {
     const li = document.createElement('li');
     li.className = 'weather-item';
@@ -465,6 +616,11 @@ function addSavedElement(name, abr, temp, weather, wind, prec, lat, lon) {
     `;
     locationList.appendChild(li);
 }
+
+// ======================
+//  Event Listeners
+// ======================
+
 
 document.addEventListener('click', (e) => {
     if(!suggestionsContainer.contains(e.target) && e.target !== locationInput) {
