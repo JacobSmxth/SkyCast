@@ -2,20 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- For responsive design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkyCast</title>
+    <!-- Link to main spreadsheet -->
     <link rel="stylesheet" href="styles.css">
     
+    <!-- Defer scripts to improve page loading performance -->
     <script src="slider.js" defer></script>
     <script src="main.js" defer></script>
 </head>
 <body>
     <div id="container">
         <header>
-        <h1><span id="logo"></span>SkyCast</h1>
-
-        <!-- <button id="dark-mode"></button> -->
-        
+            <h1>
+                <span id="logo"></span>SkyCast
+            </h1>
+            <!-- TODO: Dark Mode Button -->
             <data id="inputContainer">
                 <div class="autocompleteContainer">
                     <input type="text" id="locationInput" placeholder="Enter a location" autocomplete="off">
@@ -25,13 +28,12 @@
                 <div id="savedLocations">
                     <h3>Saved Locations</h3>
                     <ul id="locationList">
-                        <!-- Additional saved location items -->
                     </ul>
                 </div>
             </data>
         </header>
         <main>
-        <!-- Weather Display Section -->
+            <!-- Main Weather Display Section -->
             <section id="weatherDisplay">
                 <div id="locationInfoContainer">
                     <button id="saveLocation">+</button>
@@ -47,16 +49,12 @@
                         <div class="sliderContainer">
                             <button class="slider-btn left" id="scrollLeft">&larr;</button>
                             <div class="slider-wrapper">
-                                <ul id="hourlyWeather">
-                                <!-- Additional hourly items go here -->
-                                </ul>
+                                <ul id="hourlyWeather"></ul>
                             </div>
                             <button class="slider-btn right" id="scrollRight">&rarr;</button>
                         </div>
                     </div>
-                    <ul id="weeklyWeather">
-                        
-                    </ul>
+                    <ul id="weeklyWeather"></ul>
                 </div>
             </section>
         
