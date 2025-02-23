@@ -6,7 +6,6 @@ const locationName = document.querySelector('#locationName')
 const suggestionsContainer = document.querySelector('#suggestions')
 const hrContainer = document.querySelector("#hourlyWeather")
 
-
 const weeklyContainer = document.querySelector("#weeklyWeather")
 const weeklyDay = document.querySelector(".weekDay")
 const weeklyDate = document.querySelector(".exactWeekDay")
@@ -17,10 +16,16 @@ const weekSunset = document.querySelector(".sunset")
 const weekPrecChance = document.querySelector(".weekPrecipitationChance")
 const weekUVIndex = document.querySelector(".weekUVIndex")
 
+const saveBtn = document.querySelector("#saveLocation")
+const locationList = document.querySelector('#locationList')
 
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 const deg = "°F"
 
+let savedLocations = JSON.parse(localStorage.getItem('locations') || "[]");
+
+let lastLatitude
+let lastLongitude
 
 // simple function to make debugging easier and quicker
 function log(v) {
@@ -51,9 +56,6 @@ function getTodaysDate() {
     return dateInfo
 }
 
-
-
-
 function getCoords() {
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
@@ -76,6 +78,7 @@ async function initApp() {
         const userLong = position.coords.longitude;
 
         setLocation(userLat, userLong);
+
     } catch (error) {
         console.error("Error obtaining location: ", error)
     }
@@ -94,26 +97,48 @@ async function fetchJson(url) {
     }
 }
 
-// Function to set location of 
 async function setLocation(lat, long) {
     const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,precipitation_probability,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,sunshine_duration,uv_index_max,precipitation_hours,precipitation_probability_max&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=auto`
     const geoUrl = `https://us1.api-bdc.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`
 
     const geoData = await fetchJson(geoUrl);
     const weatherData = await fetchJson(apiUrl);
+    
 
     if (weatherData && geoData) {
-        setUi(weatherData, geoData);
+        setUi(weatherData, geoData)
+        lastLatitude = lat
+        lastLongitude = long
+
     } else {
         alert("Error fetching location")
     }
 }
 
+async function fetchSavedLocationData(lat, long) {
+    const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,precipitation_probability,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,sunshine_duration,uv_index_max,precipitation_hours,precipitation_probability_max&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=auto`
+    const geoUrl = `https://us1.api-bdc.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`
 
+    const geoData = await fetchJson(geoUrl);
+    const weatherData = await fetchJson(apiUrl);
+    
 
+    const { locality, principalSubdivisionCode } = geoData;
+    const { temperature_2m, weather_code, wind_speed_10m } = weatherData.current;
+    const { precipitation_probability_max } = weatherData.daily;
 
-
-
+    const everything = {
+        name: `${locality}`,
+        abr: `${principalSubdivisionCode.slice(3)}`,
+        temp: `${temperature_2m}`,
+        weather: `${weather_code}`,
+        wind: `${wind_speed_10m}`,
+        prec: `${precipitation_probability_max[0]}`,
+        lat: `${lat}`,
+        lon: `${long}`,
+    }
+    return everything
+}
 
 function debounce(fun, delay) {
     let timeout
@@ -140,7 +165,7 @@ async function fetchSuggestionsData(query) {
         }
     })
     const data = await response.json()
-    console.log("Fetched suggestions:", data);
+    log("Fetched suggestions:", data);
     return data
 }
 
@@ -210,7 +235,6 @@ function setWeatherUi(temp, weather, wind) {
     weatherType.innerText = checkWeatherCode(weather) || "Weathering Weather"
 }
 
-
 function toNormalTime(time) {
     let val = parseInt(time.split(":")[0])
 
@@ -255,11 +279,6 @@ function stillValidDay(day, maxDays) {
     return  day <= parseInt(maxDays) 
 }
 
-function getTimeSun(time) {
-
-}
-
-
 function setDailyUi(data) {
     const dailyData = data.daily;
     const {precipitation_probability_max, sunrise, sunset, temperature_2m_max, temperature_2m_min, uv_index_max, weather_code} = dailyData;
@@ -300,7 +319,6 @@ function setDailyUi(data) {
 
         if(stillValidDay(futureDay, daysThisMonth)) {
 
-            log(`${curMonth}/${futureDay} - ${date}`)
         } else {
             let newDay = futureDay - daysThisMonth
             let newMonth = curMonth + 1
@@ -310,7 +328,6 @@ function setDailyUi(data) {
                 year++
             }
 
-            log(`${newMonth}/${newDay} - ${date}`)
         }
     })
     weeklyContainer.innerHTML = html
@@ -323,9 +340,61 @@ function setUi(data1, data2) {
     setWeatherUi(current.temperature_2m, current.weather_code, current.wind_speed_10m)
     setHourlyUi(current.time, hourly.time, hourly.temperature_2m, hourly.precipitation_probability)
     setDailyUi(data1)
-    log(data1)
 }
 
+function saveLocation(lat, long) {
+    const coords = { lat: parseFloat(lat), long: parseFloat(long) };
+    const tolerance = 0.001;
+    const isDuplicate = savedLocations.some(
+        loc => Math.abs(loc.lat - coords.lat) < tolerance && Math.abs(loc.long - coords.long) < tolerance
+    );
+    if (!isDuplicate) {
+        savedLocations.push(coords);
+        localStorage.setItem("locations", JSON.stringify(savedLocations));
+        log(`Saved Location: ${coords.lat}, ${coords.long}`);
+        setSavedLocation();
+    } else {
+        log(`Location ${coords.lat}, ${coords.long} already saved`);
+    }
+}
+
+async function setSavedLocation() {
+    locationList.innerHTML = '';
+    for (const location of savedLocations) {
+        const data = await fetchSavedLocationData(location.lat, location.long);
+        const { name, abr, temp, weather, wind, prec, lat, lon } = data;
+        addSavedElement(name, abr, temp, weather, wind, prec, lat, lon);
+    }
+}
+
+function removeSavedLocation(lat, lon) {
+    log("Removing: ", lat, lon);
+    const latNum = parseFloat(lat);
+    const lonNum = parseFloat(lon);
+    savedLocations = savedLocations.filter(loc => 
+        loc.lat !== latNum || loc.long !== lonNum
+    );
+    log('New savedLocations', savedLocations);
+    localStorage.setItem('locations', JSON.stringify(savedLocations));
+    setSavedLocation();
+}
+
+function addSavedElement(name, abr, temp, weather, wind, prec, lat, lon) {
+    const li = document.createElement('li');
+    li.className = 'weather-item';
+    li.setAttribute('data-id', `${lat},${lon}`);
+    li.innerHTML = `
+        <h2 class="location-name">${name}, ${abr}</h2>
+        <button class="remove-btn"></button>
+        <div class="weather-stats">
+            <p class="temp">${temp}${deg}</p>
+            <p class="wind"><span class="windIcon"></span>${wind} mph</p>
+            <p class="precipitationChance"><span class="precipitationIcon"></span>${prec}% chance</p>
+            <p class="weatherType">${checkWeatherCode(weather)}<span class="weatherIcon"></span></p>
+        </div>
+    `;
+    locationList.appendChild(li);
+}
 
 document.addEventListener('click', (e) => {
     if(!suggestionsContainer.contains(e.target) && e.target !== locationInput) {
@@ -333,6 +402,22 @@ document.addEventListener('click', (e) => {
     }
 })
 
+saveBtn.addEventListener('click', () => {
+    if (lastLatitude !== undefined && lastLongitude !== undefined) {
+        saveLocation(lastLatitude, lastLongitude)
+    } else {
+        alert("Nope, I dont think so")
+    }
+})
+
+locationList.addEventListener('click', (e) => {
+    if (e.target.classList.contains('remove-btn')) {
+        const clicked = e.target.closest('.weather-item');
+        const id = clicked.getAttribute('data-id');
+        const [lat, lon] = id.split(',');
+        removeSavedLocation(lat, lon);
+    }
+});
 
 locationInput.addEventListener('input', debounce(async (e) => {
     const query = e.target.value.trim();
@@ -340,3 +425,4 @@ locationInput.addEventListener('input', debounce(async (e) => {
 }, 300))
 
 initApp()
+setSavedLocation()

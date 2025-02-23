@@ -175,10 +175,50 @@ header h1 {
 }
 
 #locationList {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: centerdddddddddddd;
+}
+
+.remove-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    padding: 0;
+
+    background: var(--colorPrimary);
+    color: var(--colorWhite);
+    border: 1px solid var(--colorAccent);
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1;
+
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.remove-btn:hover {
+    background: var(--colorAccent);
+    color: var(--colorPrimary);
+    transform: scale(1.1);
+}
+
+
+.weather-item {
+    position: relative; 
+    flex: 1 1 200px;
+    max-width: 15rem;
+    background: var(--colorCardBackgrounds);
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
+    transition: transform .3s ease;
 }
 
 .weather-item {
@@ -238,6 +278,7 @@ main {
 
 #locationName {
     font-size: var(--fontSize-h1-large);
+    margin-top: 1rem;
 }
 
 #temperatureVal {
@@ -262,7 +303,7 @@ main {
 
 #saveLocation {
     border: none;
-    cursor: point;
+    cursor: pointer;
     position: absolute;
     background: none;
     color: var(--colorWhite);
