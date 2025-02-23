@@ -379,55 +379,110 @@ main {
 
 
 #weeklyWeather {
-    display: grid;
-    grid-template-columns: repeat(auto-fit), minmax(10rem, 1fr);
-    gap: 1rem;
+    display: flex;
+    flex-direction: column; 
+    gap: 1.5rem; 
     padding-top: 1rem;
+    align-items: center; 
+    margin-bottom: 2rem;
 }
 
 #weeklyWeather li {
     background: var(--colorPrimary);
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: .5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    display: grid;
+    grid-template-areas: 
+        "dayStuff tempInfo"
+        "precipitation weatherType"
+        "sunInfo sunInfo"
+        "uvIndex uvIndex";
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: auto auto auto auto; 
+    gap: 1rem; 
+    color: var(--colorWhite);
+    width: 100%;
+    max-width: 30rem; 
 }
 
 .dayStuff {
+    grid-area: dayStuff;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .weekDay {
-    font-size: var(--fontSize-h2);
-    font-weight: bold;
+    font-size: clamp(1.75rem, 4vw, 2.25rem); 
+    font-weight: 700;
     margin: 0;
+    line-height: 1.2;
 }
 
 .exactWeekDay {
     font-size: var(--fontSize-body);
     margin: 0;
-    opacity: .8;
+    opacity: 0.85;
 }
 
-.weekTempVal {
-    font-size: var(--fontSize-h1);
-    margin: .5rem 0;
+.tempInfo {
+    grid-area: tempInfo;
+    display: flex;
+    align-items: flex-end; 
+    justify-content: flex-end; 
+    gap: 1rem; 
+}
+
+.weekTempHigh {
+    font-size: clamp(1.5rem, 3vw, 2rem); 
     font-weight: bold;
+    margin: 0;
+    color: var(--colorAccent);
+}
+
+.weekTempLow {
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem); 
+    font-weight: 600;
+    margin: 0;
+    opacity: 0.8;
+}
+
+.weekPrecipitationChance {
+    grid-area: precipitation; 
+    font-size: var(--fontSize-small);
+    color: var(--colorAccent);
+    margin: 0;
+    text-align: left; 
 }
 
 .weekWeatherType {
+    grid-area: weatherType; 
     font-size: var(--fontSize-body);
+    margin: 0;
+    font-weight: 500;
+    text-align: right; 
+}
+
+.sunInfo {
+    grid-area: sunInfo;
+    display: flex;
+    justify-content: space-between; 
+    font-size: var(--fontSize-small);
+    opacity: 0.9;
+}
+
+.sunrise,
+.sunset {
     margin: 0;
 }
 
-.weekPrecipationChance {
+.weekUVIndex {
+    grid-area: uvIndex;
     font-size: var(--fontSize-small);
-    color: var(--colorAccent);
+    margin: 0;
+    opacity: 0.8;
+    text-align: right; 
 }
 
 

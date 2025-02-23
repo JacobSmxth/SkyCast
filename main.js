@@ -272,15 +272,7 @@ function setDailyUi(data) {
     let secondSlice = dayNames.slice(0, weekDay)
     let dayOrder = firstSlice.concat(secondSlice)
 
-//     const weeklyContainer = document.querySelector("#weeklyWeather")
-// const weeklyDay = document.querySelector(".weekDay")
-// const weeklyDate = document.querySelector(".exactWeekDay")
-// const weekTempHigh = document.querySelector(".weekTempHigh")
-// const weekTempLow = document.querySelector(".weekTempLow")
-// const weekSunrise = document.querySelector(".sunrise")
-// const weekSunset = document.querySelector(".sunset")
-// const weekPrecChance = document.querySelector(".weekPrecipitationChance")
-// const weekUVIndex = document.querySelector(".weekUVIndex")
+
     let html = ``
     dayOrder.forEach((date, index) => {
         let futureDay = curDay + index
@@ -292,8 +284,8 @@ function setDailyUi(data) {
                                 <h4 class="exactWeekDay">${curMonth}/${futureDay}</h4>
                             </div>
                             <div class="tempInfo">
-                                <h3 class="weekTempHigh">${temperature_2m_max[index]}</h3>
-                                <h3 class="weekTempLow">${temperature_2m_min[index]}</h3>
+                                <h3 class="weekTempHigh">${temperature_2m_max[index] + deg}</h3>
+                                <h3 class="weekTempLow">${temperature_2m_min[index]+ deg}</h3>
                             </div>
                             <div class="sunInfo">
                                 <p class="sunrise">Sunrise: ${(sunrise[index].slice(11))}</p>
@@ -301,7 +293,7 @@ function setDailyUi(data) {
                             </div>
                             <p class="weekWeatherType">${checkWeatherCode(weather_code[index])}</p>
                             <p class="weekPrecipitationChance">Precipitation: ${precipitation_probability_max[index]}% </p>
-                            <p class="weekUVIndex">UV Index: ${uv_index_max[index]}</p>
+                            <p class="weekUVIndex">UV: ${uv_index_max[index]}</p>
                         </li>
         
         `
