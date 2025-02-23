@@ -97,37 +97,37 @@ async function fetchJson(url) {
     }
 }
 
+async function fetchWeatherAndGeoData(lat, long) {
+    const weatherApiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,precipitation_probability,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,sunshine_duration,uv_index_max,precipitation_hours,precipitation_probability_max&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=auto`
+    const geoApiUrl = `https://us1.api-bdc.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`
+
+    const [weatherData, geoData] = await Promise.all([
+        fetchJson(weatherApiUrl),
+        fetchJson(geoApiUrl)
+    ])
+
+    return {weatherData, geoData};
+}
+
 async function setLocation(lat, long) {
-    const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,precipitation_probability,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,sunshine_duration,uv_index_max,precipitation_hours,precipitation_probability_max&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=auto`
-    const geoUrl = `https://us1.api-bdc.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`
-
-    const geoData = await fetchJson(geoUrl);
-    const weatherData = await fetchJson(apiUrl);
-    
-
+    const {weatherData, geoData } = await fetchWeatherAndGeoData(lat, long)
     if (weatherData && geoData) {
         setUi(weatherData, geoData)
         lastLatitude = lat
         lastLongitude = long
-
     } else {
         alert("Error fetching location")
     }
 }
 
 async function fetchSavedLocationData(lat, long) {
-    const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,precipitation_probability,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,sunshine_duration,uv_index_max,precipitation_hours,precipitation_probability_max&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=auto`
-    const geoUrl = `https://us1.api-bdc.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`
+    const {weatherData, geoData } = await fetchWeatherAndGeoData(lat, long)
+    if (weatherData && geoData) {
+        const { locality, principalSubdivisionCode } = geoData;
+        const { temperature_2m, weather_code, wind_speed_10m } = weatherData.current;
+        const { precipitation_probability_max } = weatherData.daily;
 
-    const geoData = await fetchJson(geoUrl);
-    const weatherData = await fetchJson(apiUrl);
-    
-
-    const { locality, principalSubdivisionCode } = geoData;
-    const { temperature_2m, weather_code, wind_speed_10m } = weatherData.current;
-    const { precipitation_probability_max } = weatherData.daily;
-
-    const everything = {
+        return {
         name: `${locality}`,
         abr: `${principalSubdivisionCode.slice(3)}`,
         temp: `${temperature_2m}`,
@@ -136,8 +136,12 @@ async function fetchSavedLocationData(lat, long) {
         prec: `${precipitation_probability_max[0]}`,
         lat: `${lat}`,
         lon: `${long}`,
+        }
+    } else {
+        console.error("Error fetching saved location data")
+        return null
     }
-    return everything
+
 }
 
 function debounce(fun, delay) {
