@@ -576,9 +576,41 @@ footer a {
         width: 100vw;
     }
 
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-image: url('./images/horizontalBackground.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; /* Keeps the background fixed during scroll */
+        padding: clamp(1rem, 3vw, 2rem);
+        border-radius: 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+
     header h1 {
-        position: static;
+        display: flex;
+        justify-content: center;
+        position: fixed;
         font-size: var(--fontSize-h1);
+        background: #fdfdfd;
+        width: 100%;
+        padding: 0rem;
+        text-align: center;
+    }
+
+    #websiteName {
+        display: none;
+    }
+
+    #logo {
+        position: relative;
+        background: url(./icons/file.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        padding: 2rem;
     }
 
     #inputContainer {
@@ -617,4 +649,7 @@ footer a {
         gap: .2rem;
         margin-top: .2rem;
     }
+
+    
+    
 }
