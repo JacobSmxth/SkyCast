@@ -576,9 +576,41 @@ footer a {
         width: 100vw;
     }
 
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-image: url('./images/horizontalBackground.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; /* Keeps the background fixed during scroll */
+        padding: clamp(1rem, 3vw, 2rem);
+        border-radius: 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+
     header h1 {
-        position: static;
+        display: flex;
+        justify-content: center;
+        position: fixed;
         font-size: var(--fontSize-h1);
+        background: #fdfdfd;
+        width: 100%;
+        padding: 0rem;
+        text-align: center;
+    }
+
+    #websiteName {
+        display: none;
+    }
+
+    #logo {
+        position: relative;
+        background: url(./icons/file.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        padding: 2rem;
     }
 
     #inputContainer {
@@ -588,4 +620,36 @@ footer a {
     .weather-stats {
         grid-template-columns: 1fr;
     }
+
+    #savedLocations {
+        max-width: 100%;
+        width: 90vw;
+        margin-top: 1rem;
+        justify-content: none;
+    }
+    
+    #locationList {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .weather-item {
+        max-height: 32vw;
+        max-width: 90vw;
+        padding: .5rem;
+    }
+
+    .weather-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: .2rem;
+        margin-top: .2rem;
+    }
+
+    
+    
 }
