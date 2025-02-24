@@ -588,4 +588,33 @@ footer a {
     .weather-stats {
         grid-template-columns: 1fr;
     }
+
+    #savedLocations {
+        max-width: 100%;
+        width: 90vw;
+        margin-top: 1rem;
+        justify-content: none;
+    }
+    
+    #locationList {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .weather-item {
+        max-height: 32vw;
+        max-width: 90vw;
+        padding: .5rem;
+    }
+
+    .weather-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: .2rem;
+        margin-top: .2rem;
+    }
 }
