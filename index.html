@@ -4,66 +4,90 @@
     <meta charset="UTF-8">
     <!-- For responsive design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyCast</title>
+    <title>SkyCast | New Professional Look!</title>
     <link rel="icon" type="favicon" href="./icons/favicon.svg">
     <!-- Link to main spreadsheet -->
     <link rel="stylesheet" href="styles.css">
-    
+
     <!-- Defer scripts to improve page loading performance -->
     <script src="slider.js" defer></script>
     <script src="main.js" defer></script>
 </head>
 <body>
-    <div id="container">
-        <header>
-            <h1>
-                <span id="logo"></span><span id="websiteName">SkyCast</span>
-            </h1>
-            <!-- TODO: Dark Mode Button -->
-            <data id="inputContainer">
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div id="logo"></div>
+                <h1 id="websiteName">SkyCast</h1>
+            </div>
+            
+            <div class="search-container">
                 <div class="autocompleteContainer">
-                    <input type="text" id="locationInput" placeholder="Enter a location" autocomplete="off">
+                    <input type="text" id="locationInput" placeholder="Search location..." autocomplete="off">
                     <div id="suggestions" class="suggestionsList"></div>
                 </div>
-                <div id="searchIcon"></div>
-                <div id="savedLocations">
-                    <h3>Saved Locations</h3>
-                    <ul id="locationList">
-                    </ul>
-                </div>
-            </data>
-        </header>
-        <main>
-            <!-- Main Weather Display Section -->
-            <section id="weatherDisplay">
-                <div id="locationInfoContainer">
-                    <button id="saveLocation">+</button>
-                    <div id="generalLocationInfo">
-                        <h3 id="locationName"></h3>
-                        <h2 id="temperatureVal"><span id="tempType"></span></h2>
-                        <p id="weatherType"><span id="weatherIcon"></span></p>
-                        <p id="windVal"></p>
-                    </div>
+            </div>
+            
+            <div id="savedLocations">
+                <h3>Saved Locations</h3>
+                <ul id="locationList"></ul>
+            </div>
+        </aside>
 
-                    <!-- Hourly Weather Slider -->
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h2 id="locationName" class="location-title"></h2>
+                <button id="saveLocation" class="save-location-btn" title="Save this location">
+                    <span class="save-icon">+</span>
+                </button>
+            </header>
+
+            <!-- Dashboard Grid Layout -->
+            <div class="dashboard-grid">
+                <!-- Current Weather Panel -->
+                <section class="panel current-weather">
+                    <h3 class="panel-title">Current Conditions</h3>
+                    <div id="generalLocationInfo" class="current-weather-data">
+                        <div class="temp-container">
+                            <h2 id="temperatureVal" class="temperature"></h2>
+                            <span id="tempType" class="temp-unit"></span>
+                        </div>
+                        <p id="weatherType" class="weather-condition"></p>
+                        <p id="windVal" class="wind-value"></p>
+                    </div>
+                </section>
+
+                <!-- Hourly Forecast Panel -->
+                <section class="panel hourly-forecast">
+                    <h3 class="panel-title">Hourly Forecast</h3>
                     <div class="hourlySlider">
                         <div class="sliderContainer">
-                            <button class="slider-btn left" id="scrollLeft">&larr;</button>
+                            <button class="slider-btn left" id="scrollLeft">
+                                <span class="arrow-icon">←</span>
+                            </button>
                             <div class="slider-wrapper">
-                                <ul id="hourlyWeather"></ul>
+                                <ul id="hourlyWeather" class="hourly-list"></ul>
                             </div>
-                            <button class="slider-btn right" id="scrollRight">&rarr;</button>
+                            <button class="slider-btn right" id="scrollRight">
+                                <span class="arrow-icon">→</span>
+                            </button>
                         </div>
                     </div>
-                    <ul id="weeklyWeather"></ul>
-                </div>
-            </section>
-        
-        
+                </section>
+
+                <!-- Weekly Forecast Panel -->
+                <section class="panel weekly-forecast">
+                    <h3 class="panel-title">7-Day Forecast</h3>
+                    <ul id="weeklyWeather" class="weekly-list"></ul>
+                </section>
+            </div>
         </main>
     </div>
-    <footer> © 2025 SkyCast. Designed by Jacob Smith <br>
-        Image by <a href="https://unsplash.com/@wolfgang_hasselmann?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Wolfgang Hasselmann</a> on <a href="https://unsplash.com/photos/blue-sky-and-white-clouds-over-lake-bR_-gllg7Bs?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
+    <footer class="app-footer">
+        <p>© 2025 SkyCast. Designed by Jacob Smith</p>
     </footer>
 </body>
 </html>

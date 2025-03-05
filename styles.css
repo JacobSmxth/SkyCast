@@ -1,9 +1,8 @@
 /* ================================================================
     1. Imports, Reset, and Global Variables
    ================================================================ */
-
-   /* Import Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
 
 /* CSS Reset */
 *,
@@ -11,11 +10,10 @@
 *::after {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Ensures padding and borders are included in total width/height */
+    box-sizing: border-box;
 }
 
 /* Remove default list styling */
-
 ul,
 ol {
     list-style: none;
@@ -23,122 +21,162 @@ ol {
 
 /* CSS Variables */
 :root {
-
-    /* Colors */
-    --colorCardBackgrounds: #0027508c;
-    --colorPrimary: #002750;
-    --colorAccent: #FFD60A;
-    --colorWhite: #fdfdfd;
-
-    --clearSkies: linear-gradient(180deg, rgba(135,206,235,1) 0%, rgba(30,144,255,1) 100%);
-    --rainyWeather: linear-gradient(180deg, rgba(74,85,104,1) 0%, rgba(30,58,138,1) 100%);
-    --thunderstorm: linear-gradient(180deg, rgba(45,55,72,1) 0%, rgba(107,70,193,1) 100%);
-
-    /* Font Stuff */
-    --fontPrimary: 'Inter', Arial, sans-serif;
-    --fontAccent: 'Montserrat', sans-serif;
-    --fontThin: 'Arsenal SC', serif;
-
-    /* The clamp() function takes three values: a minimum, a preferred, and a maximum 
-    It ensures that the computed value never falls below the minimum or exceeds the maximum.
-    */
-    --fontSize-h1: clamp(1.5rem, 4vw, 2rem);
-    --fontSize-h1-large: clamp(2rem, 5vw, 3.125rem);
-    --fontSize-h2: clamp(1.25rem, 3vw, 1.5rem);
-    --fontSize-body: clamp(0.875rem, 2vw, 1rem);
-    --fontSize-small: clamp(0.625rem, 1.5vw, 0.75rem);
+    /* Professional Color Palette */
+    --color-primary: #2c3e50;
+    --color-primary-light: #34495e;
+    --color-secondary: #3498db;
+    --color-secondary-light: #5dade2;
+    --color-accent: #f39c12;
+    --color-white: #ffffff;
+    --color-gray-100: #f7f9fa;
+    --color-gray-200: #e9ecef;
+    --color-gray-300: #dee2e6;
+    --color-gray-400: #ced4da;
+    --color-gray-500: #adb5bd;
+    --color-gray-600: #6c757d;
+    --color-gray-700: #495057;
+    --color-gray-800: #343a40;
+    --color-gray-900: #212529;
+    
+    /* Weather-specific colors */
+    --color-clear: #f1c40f;
+    --color-clouds: #95a5a6;
+    --color-rain: #3498db;
+    --color-storm: #2c3e50;
+    --color-snow: #ecf0f1;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    
+    /* Typography */
+    --font-primary: 'Inter', sans-serif;
+    --font-heading: 'Poppins', sans-serif;
+    
+    /* Font Sizes */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+    
+    /* Spacing */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-20: 5rem;
+    
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
+    --radius-full: 9999px;
+    
+    /* Transitions */
+    --transition-fast: 150ms;
+    --transition-normal: 250ms;
+    --transition-slow: 350ms;
 }
 
 /* Global Styles */
 html {
+    font-size: 16px;
     scroll-behavior: smooth;
 }
 
 body {
-    font-family: var(--fontPrimary);
-    font-size: var(--fontSize-body);
-    background: linear-gradient(180deg, rgb(77, 125, 209) 0%, #002750 100%);
+    font-family: var(--font-primary);
+    font-size: var(--text-base);
+    line-height: 1.5;
+    color: var(--color-gray-800);
+    background-color: var(--color-gray-100);
     min-height: 100vh;
-    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* ================================================================
-    2. Layout Containers and Global Sections
+    2. Layout & Container Styles
    ================================================================ */
+.app-container {
+    display: flex;
+    min-height: calc(100vh - 60px); /* Subtract footer height */
+}
 
-/* Main Container */
-div#container {
-    max-width: 100vw;
-    width: 80%;
-    margin: 0 auto;
-    padding: 1rem;
+/* Sidebar Navigation */
+.sidebar {
+    width: 300px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
     display: flex;
     flex-direction: column;
-    box-shadow: 0 1rem 1rem 0 #00000083; /* Add depth with shadow */
-    color: var(--colorWhite);
-}
-
-/* Header Section */
-header {
-    background-image: url('./images/horizontalBackground.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Keeps the background fixed during scroll */
-    padding: clamp(1rem, 3vw, 2rem);
-    border-radius: 1rem;
-    position: relative;
-    overflow: hidden;
-}
-
-header h1 {
-    position: sticky;
-    display: flex;
-    align-items: center;
-    top: 0;
-    padding: .5rem 1rem;
-    text-shadow: 2px 2px 1px #000;
-    font-size: var(--fontSize-h1-large);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-lg);
     z-index: 10;
 }
 
-/* Logo */
+.brand {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 #logo {
-    position: relative;
-    top: 50%;
-    bottom: 50%;
+    width: 36px;
+    height: 36px;
     background: url(./icons/file.svg);
     background-size: contain;
     background-repeat: no-repeat;
-    padding: 3rem;
+    margin-right: var(--space-3);
 }
 
-/* ================================================================
-    3. Input, Autocomplete, and Saved Locations
-   ================================================================ */
+#websiteName {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
 
-/* Input and Autocomplete */
-#inputContainer {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.search-container {
+    margin-bottom: var(--space-6);
+}
+
+#locationInput {
     width: 100%;
-    margin-top: 4rem;
+    padding: var(--space-3) var(--space-4);
+    border: none;
+    border-radius: var(--radius-md);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-white);
+    font-size: var(--text-base);
+    transition: background-color var(--transition-normal);
 }
 
-#locationInput{
-    max-width: 100%;
-    padding: .75rem 1rem .75rem 2rem;
-    width: 40vw;
-    outline: none;
-    border: none;
-    border-radius: 2rem;
-    margin-top: 10rem;
-    transition: box-shadow .3s ease;
+#locationInput::placeholder {
+    color: var(--color-gray-400);
 }
 
 #locationInput:focus {
-    box-shadow: 0 0 0 3px var(--colorAccent);
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.5);
 }
 
 .autocompleteContainer {
@@ -146,510 +184,577 @@ header h1 {
 }
 
 .suggestionsList {
-    visibility: hidden; /* Initially hidden until toggled in js */
+    visibility: hidden;
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
-    background: #fff;
-    color: #002750;
-    border: 1px solid #ccc;
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
     z-index: 100;
     max-height: 200px;
     overflow-y: auto;
-    border-radius: 1rem;
-
+    margin-top: var(--space-2);
 }
 
 .suggestionsList.toggle {
-    visibility: visible; /* toggle this one in js */
+    visibility: visible;
 }
 
 .suggestion-item {
-    padding: 0.5rem;
+    padding: var(--space-3) var(--space-4);
     cursor: pointer;
-    border-bottom: 1px solid #eee;
-    
+    color: var(--color-gray-800);
+    transition: background-color var(--transition-fast);
 }
 
 .suggestion-item:hover {
-    background: #f0f0f0;
+    background-color: var(--color-gray-200);
 }
 
 /* Saved Locations */
 #savedLocations {
-    max-width: 100%;
-    width: 40vw;
-    margin-top: 1rem;
-    justify-content: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#savedLocations h3 {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: 500;
+    margin-bottom: var(--space-4);
+    color: var(--color-gray-300);
 }
 
 #locationList {
-    position: relative;
     display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
+    flex-direction: column;
+    gap: var(--space-4);
+    overflow-y: auto;
+    flex: 1;
 }
 
-.remove-btn {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
-    padding: 0;
-
-    background: var(--colorPrimary);
-    color: var(--colorWhite);
-    border: 1px solid var(--colorAccent);
-    font-size: 1rem;
-    font-weight: bold;
-    line-height: 1;
-
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.remove-btn:hover {
-    background: var(--colorAccent);
-    color: var(--colorPrimary);
-    transform: scale(1.1);
-}
-
-/* ================================================================
-    4. Weather Display Components
-   ================================================================ */
-
-/* Weather Cards */
 .weather-item {
-    position: relative; 
-    flex: 1 1 200px;
-    max-width: 15rem;
-    background: var(--colorCardBackgrounds);
-    border-radius: 1rem;
-    padding: 1rem;
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
-    transition: transform .3s ease;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    position: relative;
+    cursor: pointer;
+    transition: all var(--transition-normal);
 }
 
 .weather-item:hover {
-    transform: translateY(-5px);
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
 }
 
+.location-name {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    margin-bottom: var(--space-2);
+    padding-right: var(--space-6);
+}
 
 .weather-stats {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: .2rem;
-    margin-top: .5rem;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
 }
 
 .temp {
-    font-size: var(--fontSize-h2);
+    font-size: var(--text-2xl);
+    font-weight: 700;
     grid-column: 1 / -1;
+    margin-bottom: var(--space-2);
 }
 
-.wind {
-    grid-row: 3;
+.remove-btn {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-full);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-normal);
 }
 
-.precipitationChance {
-    grid-row: 3;
-    margin-left: 1rem;
+.remove-btn:hover {
+    background-color: rgba(231, 76, 60, 0.8);
 }
 
-.weatherType {
-    grid-row: 2;
+.remove-btn::before {
+    content: "×";
+    font-size: 18px;
+    line-height: 1;
 }
 
-/* Main Weather Display */
-main {
-    padding: clamp(1rem, 3vw, 2rem) 0; /* Responsive vertical padding */
+/* Main Content Area */
+.main-content {
+    flex: 1;
+    background-color: var(--color-gray-100);
+    padding: var(--space-8);
+    overflow-y: auto;
 }
 
-#weatherDisplay {
-    background: var(--colorCardBackgrounds);
-    border-radius: 1rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    padding: clamp(1rem 3vw, 2rem);
-    width: 100%;
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-8);
 }
 
-#locationName {
-    font-size: var(--fontSize-h1-large);
-    margin-top: 1rem;
+.location-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: 600;
+    color: var(--color-gray-900);
 }
 
-#temperatureVal {
-    font-size: var(--fontSize-h1);
+.save-location-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-md);
 }
 
-#tempType {
-    font-size: var(--fontSize-h2);
-    margin-left: .5rem;
+.save-location-btn:hover {
+    background-color: var(--color-secondary-light);
+    transform: scale(1.05);
 }
 
-#windVal {
-    font-size: var(--fontSize-body);
+.save-icon {
+    font-size: var(--text-2xl);
+    line-height: 1;
 }
 
-#locationInfoContainer {
-    position: relative;
+/* Dashboard Grid Layout */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto 1fr;
+    gap: var(--space-6);
+}
+
+.panel {
+    background-color: var(--color-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-6);
     display: flex;
     flex-direction: column;
-    gap: 2rem;
 }
 
-#saveLocation {
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    background: none;
-    color: var(--colorWhite);
+.panel-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: 500;
+    color: var(--color-gray-700);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-gray-200);
+}
+
+/* Current Weather Panel */
+.current-weather {
+    grid-column: span 4;
+    grid-row: span 1;
+}
+
+.current-weather-data {
+    flex: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
-    padding: 1rem;
-    height: 1rem;
-    width: 1rem;
-    right: 1rem;
-    top: 1rem;
-    border-radius: 50%;
-
-}
-
-/* General Location Info */
-#generalLocationInfo {
-    text-align: center;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255,255,255, 0.3);
-}
-
-#weatherType {
-    font-size: var(--fontSize-body);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: .5rem;
-    margin-top: .5rem;
-}
-
-/* Hourly Forecast */
-#hourlyWeather {
-    display: flex;
-    gap: .75rem;
-    padding: .5rem;
-    user-select: none;
-    transition: transform 0.3s ease;
-}
-
-#hourlyWeather .hour {
-    flex: 0 0 clamp(70px, 20vw, 100px); /* makes sure each hour block is responsive */
-    background: var(--colorPrimary);
-    padding: .75rem;
-    border-radius: 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,.7);
     text-align: center;
 }
 
-#hourlyWeather .hourTime {
-    font-size: 1rem;
-    font-weight: bold;
-    margin-bottom: .5rem;
+.temp-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: var(--space-4);
 }
 
-#hourlyWeather .hourTempVal {
-    font-size: 1.25rem;
-    margin-bottom: .5rem;
+.temperature {
+    font-size: var(--text-5xl);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-gray-900);
 }
 
-#hourlyWeather .hourPrecipitationChance {
-    font-size: 0.875rem;
-    color: var(--colorAccent);
+.temp-unit {
+    font-size: var(--text-xl);
+    color: var(--color-gray-600);
+    margin-left: var(--space-1);
 }
 
-/* ================================================================
-    5. Slider Controls
-   ================================================================ */
+.weather-condition {
+    font-size: var(--text-xl);
+    font-weight: 500;
+    color: var(--color-secondary);
+    margin-bottom: var(--space-3);
+}
 
-/* Slider Container & Wrapper */
+.wind-value {
+    font-size: var(--text-base);
+    color: var(--color-gray-600);
+}
+
+/* Hourly Forecast Panel */
+.hourly-forecast {
+    grid-column: span 8;
+    grid-row: span 1;
+}
+
 .sliderContainer {
-    width: 100%;
-    padding: 1rem 0;
     position: relative;
-    touch-action: pan-y; /* Allows vertical scrolling on touch device */
+    width: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
 }
 
 .slider-wrapper {
     overflow-x: auto;
-    scroll-snap-type: x mandatory; /* Ensures child elements snap into place */
-    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    flex: 1;
+    padding: var(--space-2);
+    margin: 0 var(--space-8);
 }
 
 .slider-wrapper::-webkit-scrollbar {
     display: none;
 }
 
-/* Slider Buttons */
-.slider-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: var(--colorWhite);
-    padding: 1rem;
-    width: 2rem;
-    height: 2rem;
-    outline: none;
-    border: none;
-    border-radius: 50%;
+.hourly-list {
+    display: flex;
+    gap: var(--space-4);
+}
+
+.hour {
+    flex: 0 0 90px;
+    background-color: var(--color-gray-100);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    text-align: center;
+    transition: all var(--transition-normal);
+}
+
+.hour:hover {
+    background-color: var(--color-gray-200);
+    transform: translateY(-2px);
+}
+
+.hourTime {
+    font-weight: 600;
+    color: var(--color-gray-700);
+    margin-bottom: var(--space-2);
+}
+
+.hourTempVal {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin-bottom: var(--space-2);
+}
+
+.hourPrecipitationChance {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.hourPrecipitationChance::before {
+    content: '💧';
+    margin-right: var(--space-1);
+    font-size: 10px;
+}
+
+.slider-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    box-shadow: var(--shadow-md);
+}
+
 .slider-btn:hover {
-    background: rgba(0, 0, 0, 0.7);
+    background-color: var(--color-secondary-light);
 }
 
 .slider-btn.left {
-    left: 0rem;
+    left: 0;
 }
 
 .slider-btn.right {
-    right: 0rem;
+    right: 0;
 }
 
-/* ================================================================
-    6. Weekly Weather Forecast
-   ================================================================ */
+.arrow-icon {
+    font-size: var(--text-lg);
+    line-height: 1;
+}
 
-#weeklyWeather {
+/* Weekly Forecast Panel */
+.weekly-forecast {
+    grid-column: span 12;
+    grid-row: span 1;
+}
+
+.weekly-list {
     display: flex;
-    flex-direction: column; 
-    gap: 1.5rem; 
-    padding-top: 1rem;
-    align-items: center; 
-    margin-bottom: 2rem;
+    flex-direction: column;
+    gap: var(--space-4);
 }
 
 #weeklyWeather li {
-    background: var(--colorPrimary);
-    padding: 1.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     display: grid;
-    grid-template-areas: 
-        "dayStuff tempInfo"
-        "precipitation weatherType"
-        "sunInfo sunInfo"
-        "uvIndex uvIndex";
-    grid-template-columns: 1fr 1fr; 
-    grid-template-rows: auto auto auto auto; 
-    gap: 1rem; 
-    color: var(--colorWhite);
-    width: 100%;
-    max-width: 30rem; 
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    padding: var(--space-4);
+    background-color: var(--color-gray-100);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-normal);
+}
+
+#weeklyWeather li:hover {
+    background-color: var(--color-gray-200);
+    transform: translateX(4px);
 }
 
 .dayStuff {
-    grid-area: dayStuff;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
 }
 
 .weekDay {
-    font-size: clamp(1.75rem, 4vw, 2.25rem); 
-    font-weight: 700;
-    margin: 0;
-    line-height: 1.2;
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--color-gray-900);
 }
 
 .exactWeekDay {
-    font-size: var(--fontSize-body);
-    margin: 0;
-    opacity: 0.85;
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
 }
 
 .tempInfo {
-    grid-area: tempInfo;
     display: flex;
-    align-items: flex-end; 
-    justify-content: flex-end; 
-    gap: 1rem; 
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
 }
 
 .weekTempHigh {
-    font-size: clamp(1.5rem, 3vw, 2rem); 
-    font-weight: bold;
-    margin: 0;
-    color: var(--colorAccent);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-accent);
 }
 
 .weekTempLow {
-    font-size: clamp(1.25rem, 2.5vw, 1.5rem); 
-    font-weight: 600;
-    margin: 0;
-    opacity: 0.8;
-}
-
-.weekPrecipitationChance {
-    grid-area: precipitation; 
-    font-size: var(--fontSize-small);
-    color: var(--colorAccent);
-    margin: 0;
-    text-align: left; 
+    font-size: var(--text-lg);
+    font-weight: 500;
+    color: var(--color-gray-600);
 }
 
 .weekWeatherType {
-    grid-area: weatherType; 
-    font-size: var(--fontSize-body);
-    margin: 0;
+    text-align: center;
     font-weight: 500;
-    text-align: right; 
+    color: var(--color-secondary);
+}
+
+.weekPrecipitationChance {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-700);
+}
+
+.weekPrecipitationChance::before {
+    content: '💧';
+    margin-right: var(--space-2);
 }
 
 .sunInfo {
-    grid-area: sunInfo;
+    grid-column: span 2;
     display: flex;
-    justify-content: space-between; 
-    font-size: var(--fontSize-small);
-    opacity: 0.9;
+    justify-content: space-around;
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
 }
 
-.sunrise,
-.sunset {
-    margin: 0;
+.sunrise::before {
+    content: '🌅';
+    margin-right: var(--space-1);
+}
+
+.sunset::before {
+    content: '🌇';
+    margin-right: var(--space-1);
 }
 
 .weekUVIndex {
-    grid-area: uvIndex;
-    font-size: var(--fontSize-small);
-    margin: 0;
-    opacity: 0.8;
-    text-align: right; 
+    display: none; /* Hidden in this layout for simplicity */
 }
 
-/* ================================================================
-    7. Footer
-   ================================================================ */
-
-footer {
-    background: var(--colorPrimary);
-    color: var(--colorAccent);
-
-    padding: 1rem;
-
-    font-family: var(--fontAccent);
+/* Footer */
+.app-footer {
+    background-color: var(--color-primary);
+    color: var(--color-gray-400);
+    padding: var(--space-4);
     text-align: center;
+    font-size: var(--text-sm);
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-footer a {
-    color: var(--colorWhite)
+.app-footer a {
+    color: var(--color-gray-300);
+    text-decoration: none;
+    transition: color var(--transition-fast);
 }
 
+.app-footer a:hover {
+    color: var(--color-white);
+}
+
+.credits {
+    margin-top: var(--space-1);
+    font-size: var(--text-xs);
+}
 
 /* ================================================================
-    8. Media Queries
+    3. Responsive Design
    ================================================================ */
-
-@media (max-width: 1024px) {
-    div#container {
-        width: 95%;
+@media (max-width: 1200px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(6, 1fr);
     }
+    
+    .current-weather {
+        grid-column: span 2;
+    }
+    
+    .hourly-forecast {
+        grid-column: span 4;
+    }
+    
+    .weekly-forecast {
+        grid-column: span 6;
+    }
+}
 
-    header {
-        padding: 1rem;
+@media (max-width: 992px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+    
+    .current-weather,
+    .hourly-forecast,
+    .weekly-forecast {
+        grid-column: span 1;
     }
 }
 
 @media (max-width: 768px) {
-    div#container {
-        box-shadow: none;
-        width: 100vw;
+    .app-container {
+        flex-direction: column;
     }
+    
+    .sidebar {
+        width: 100%;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    
+    .main-content {
+        padding: var(--space-4);
+    }
+    
+    #weeklyWeather li {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto;
+        padding: var(--space-4);
+        gap: var(--space-3);
+    }
+    
+    .dayStuff {
+        grid-column: span 1;
+    }
+    
+    .tempInfo {
+        grid-column: span 1;
+        justify-content: flex-end;
+    }
+    
+    .weekWeatherType {
+        grid-column: span 1;
+        text-align: left;
+    }
+    
+    .weekPrecipitationChance {
+        grid-column: span 1;
+        justify-content: flex-end;
+    }
+    
+    .sunInfo {
+        grid-column: span 2;
+        flex-direction: column;
+        gap: var(--space-2);
+        align-items: flex-start;
+    }
+}
 
-    header {
-        display: flex;
+@media (max-width: 480px) {
+    .temp-container {
         flex-direction: column;
         align-items: center;
-        background-image: url('./images/horizontalBackground.jpg');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed; /* Keeps the background fixed during scroll */
-        padding: clamp(1rem, 3vw, 2rem);
-        border-radius: 1rem;
-        position: relative;
-        overflow: hidden;
-    }
-
-    header h1 {
-        display: flex;
-        justify-content: center;
-        position: fixed;
-        font-size: var(--fontSize-h1);
-        background: #fdfdfd;
-        width: 100%;
-        padding: 0rem;
-        text-align: center;
-    }
-
-    #websiteName {
-        display: none;
-    }
-
-    #logo {
-        position: relative;
-        background: url(./icons/file.svg);
-        background-size: contain;
-        background-repeat: no-repeat;
-        padding: 2rem;
-    }
-
-    #inputContainer {
-        margin-top: 1rem;
-    }
-
-    .weather-stats {
-        grid-template-columns: 1fr;
-    }
-
-    #savedLocations {
-        max-width: 100%;
-        width: 90vw;
-        margin-top: 1rem;
-        justify-content: none;
     }
     
-    #locationList {
-        position: relative;
-        display: flex;
+    .dashboard-header {
         flex-direction: column;
-        flex-wrap: nowrap;
-        gap: 1rem;
-        justify-content: center;
+        align-items: flex-start;
+        gap: var(--space-4);
     }
-
-    .weather-item {
-        max-height: 32vw;
-        max-width: 90vw;
-        padding: .5rem;
-    }
-
-    .weather-stats {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: .2rem;
-        margin-top: .2rem;
-    }
-
     
-    
+    .save-location-btn {
+        align-self: flex-end;
+        margin-top: calc(-1 * var(--space-10));
+    }
 }
