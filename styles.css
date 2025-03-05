@@ -3,7 +3,6 @@
    ================================================================ */
 /* Import Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
-
 /* CSS Reset */
 *,
 *::before,
@@ -12,13 +11,11 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 /* Remove default list styling */
 ul,
 ol {
     list-style: none;
 }
-
 /* CSS Variables */
 :root {
     /* Professional Color Palette */
@@ -51,33 +48,33 @@ ol {
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     
-    /* Typography */
-    --font-primary: 'Inter', sans-serif;
-    --font-heading: 'Poppins', sans-serif;
+    /* Typography - Using clamp for responsive font sizing */
+    --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-heading: 'Poppins', system-ui, -apple-system, sans-serif;
     
-    /* Font Sizes */
-    --text-xs: 0.75rem;
-    --text-sm: 0.875rem;
-    --text-base: 1rem;
-    --text-lg: 1.125rem;
-    --text-xl: 1.25rem;
-    --text-2xl: 1.5rem;
-    --text-3xl: 1.875rem;
-    --text-4xl: 2.25rem;
-    --text-5xl: 3rem;
+    /* Font Sizes - Using clamp for responsive sizing */
+    --text-xs: clamp(0.7rem, 2vw, 0.75rem);
+    --text-sm: clamp(0.8rem, 2vw, 0.875rem);
+    --text-base: clamp(0.9rem, 2vw, 1rem);
+    --text-lg: clamp(1.05rem, 2vw, 1.125rem);
+    --text-xl: clamp(1.15rem, 2.5vw, 1.25rem);
+    --text-2xl: clamp(1.3rem, 3vw, 1.5rem);
+    --text-3xl: clamp(1.5rem, 4vw, 1.875rem);
+    --text-4xl: clamp(1.8rem, 5vw, 2.25rem);
+    --text-5xl: clamp(2.5rem, 6vw, 3rem);
     
-    /* Spacing */
-    --space-1: 0.25rem;
-    --space-2: 0.5rem;
-    --space-3: 0.75rem;
-    --space-4: 1rem;
-    --space-5: 1.25rem;
-    --space-6: 1.5rem;
-    --space-8: 2rem;
-    --space-10: 2.5rem;
-    --space-12: 3rem;
-    --space-16: 4rem;
-    --space-20: 5rem;
+    /* Spacing - Using clamp for responsive spacing */
+    --space-1: clamp(0.2rem, 1vw, 0.25rem);
+    --space-2: clamp(0.35rem, 1vw, 0.5rem);
+    --space-3: clamp(0.5rem, 1.5vw, 0.75rem);
+    --space-4: clamp(0.75rem, 2vw, 1rem);
+    --space-5: clamp(1rem, 2.5vw, 1.25rem);
+    --space-6: clamp(1.1rem, 3vw, 1.5rem);
+    --space-8: clamp(1.5rem, 4vw, 2rem);
+    --space-10: clamp(2rem, 5vw, 2.5rem);
+    --space-12: clamp(2.5rem, 6vw, 3rem);
+    --space-16: clamp(3rem, 8vw, 4rem);
+    --space-20: clamp(4rem, 10vw, 5rem);
     
     /* Border Radius */
     --radius-sm: 0.25rem;
@@ -92,13 +89,11 @@ ol {
     --transition-normal: 250ms;
     --transition-slow: 350ms;
 }
-
 /* Global Styles */
 html {
     font-size: 16px;
     scroll-behavior: smooth;
 }
-
 body {
     font-family: var(--font-primary);
     font-size: var(--text-base);
@@ -108,56 +103,56 @@ body {
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
-
 /* ================================================================
     2. Layout & Container Styles
    ================================================================ */
 .app-container {
     display: flex;
+    flex-direction: column;
     min-height: calc(100vh - 60px); /* Subtract footer height */
 }
-
 /* Sidebar Navigation */
 .sidebar {
-    width: 300px;
+    width: 100%;
     background-color: var(--color-primary);
     color: var(--color-white);
     display: flex;
     flex-direction: column;
-    padding: var(--space-6);
+    padding: var(--space-4);
     box-shadow: var(--shadow-lg);
     z-index: 10;
+    position: relative;
+    max-height: none;
+    overflow: visible;
 }
-
 .brand {
     display: flex;
     align-items: center;
-    margin-bottom: var(--space-8);
-    padding-bottom: var(--space-6);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-4);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-
 #logo {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     background: url(./icons/file.svg);
     background-size: contain;
     background-repeat: no-repeat;
-    margin-right: var(--space-3);
+    margin-right: var(--space-2);
 }
-
 #websiteName {
     font-family: var(--font-heading);
-    font-size: var(--text-2xl);
+    font-size: var(--text-xl);
     font-weight: 600;
     letter-spacing: -0.01em;
+    white-space: nowrap;
 }
-
 .search-container {
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--space-4);
+    width: 100%;
 }
-
 #locationInput {
     width: 100%;
     padding: var(--space-3) var(--space-4);
@@ -168,21 +163,18 @@ body {
     font-size: var(--text-base);
     transition: background-color var(--transition-normal);
 }
-
 #locationInput::placeholder {
     color: var(--color-gray-400);
 }
-
 #locationInput:focus {
     outline: none;
     background-color: rgba(255, 255, 255, 0.15);
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.5);
 }
-
 .autocompleteContainer {
     position: relative;
+    width: 100%;
 }
-
 .suggestionsList {
     visibility: hidden;
     position: absolute;
@@ -197,86 +189,87 @@ body {
     overflow-y: auto;
     margin-top: var(--space-2);
 }
-
 .suggestionsList.toggle {
     visibility: visible;
 }
-
 .suggestion-item {
     padding: var(--space-3) var(--space-4);
     cursor: pointer;
     color: var(--color-gray-800);
     transition: background-color var(--transition-fast);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
 .suggestion-item:hover {
     background-color: var(--color-gray-200);
 }
-
 /* Saved Locations */
 #savedLocations {
     flex: 1;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-height: 300px;
 }
-
 #savedLocations h3 {
     font-family: var(--font-heading);
     font-size: var(--text-lg);
     font-weight: 500;
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-3);
     color: var(--color-gray-300);
 }
-
 #locationList {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-3);
     overflow-y: auto;
     flex: 1;
+    width: 100%;
 }
-
 .weather-item {
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: var(--radius-lg);
-    padding: var(--space-4);
+    padding: var(--space-3);
     position: relative;
     cursor: pointer;
     transition: all var(--transition-normal);
+    flex: 1 1 calc(50% - var(--space-3));
+    min-width: 200px;
+    max-width: 100%;
 }
-
 .weather-item:hover {
     background-color: rgba(255, 255, 255, 0.1);
     transform: translateY(-2px);
 }
-
 .location-name {
     font-size: var(--text-lg);
     font-weight: 500;
     margin-bottom: var(--space-2);
     padding-right: var(--space-6);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
 .weather-stats {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-2);
     font-size: var(--text-sm);
 }
-
 .temp {
-    font-size: var(--text-2xl);
+    font-size: var(--text-xl);
     font-weight: 700;
     grid-column: 1 / -1;
     margin-bottom: var(--space-2);
 }
-
 .remove-btn {
     position: absolute;
-    top: var(--space-3);
-    right: var(--space-3);
-    width: 24px;
-    height: 24px;
+    top: var(--space-2);
+    right: var(--space-2);
+    width: 28px;
+    height: 28px;
     border-radius: var(--radius-full);
     background-color: rgba(255, 255, 255, 0.1);
     border: none;
@@ -286,40 +279,42 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: all var(--transition-normal);
+    z-index: 2;
 }
-
 .remove-btn:hover {
     background-color: rgba(231, 76, 60, 0.8);
 }
-
 .remove-btn::before {
     content: "×";
     font-size: 18px;
     line-height: 1;
 }
-
 /* Main Content Area */
 .main-content {
     flex: 1;
     background-color: var(--color-gray-100);
-    padding: var(--space-8);
+    padding: var(--space-4);
     overflow-y: auto;
+    width: 100%;
 }
-
 .dashboard-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+    gap: var(--space-3);
 }
-
 .location-title {
     font-family: var(--font-heading);
-    font-size: var(--text-3xl);
+    font-size: var(--text-2xl);
     font-weight: 600;
     color: var(--color-gray-900);
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-
 .save-location-btn {
     width: 40px;
     height: 40px;
@@ -333,51 +328,45 @@ body {
     cursor: pointer;
     transition: all var(--transition-normal);
     box-shadow: var(--shadow-md);
+    margin-left: auto;
 }
-
 .save-location-btn:hover {
     background-color: var(--color-secondary-light);
     transform: scale(1.05);
 }
-
 .save-icon {
-    font-size: var(--text-2xl);
+    font-size: var(--text-xl);
     line-height: 1;
 }
-
 /* Dashboard Grid Layout */
 .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: auto 1fr;
-    gap: var(--space-6);
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    width: 100%;
 }
-
 .panel {
     background-color: var(--color-white);
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
-    padding: var(--space-6);
+    padding: var(--space-4);
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
-
 .panel-title {
     font-family: var(--font-heading);
     font-size: var(--text-lg);
     font-weight: 500;
     color: var(--color-gray-700);
-    margin-bottom: var(--space-4);
-    padding-bottom: var(--space-3);
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-2);
     border-bottom: 1px solid var(--color-gray-200);
 }
-
 /* Current Weather Panel */
 .current-weather {
-    grid-column: span 4;
-    grid-row: span 1;
+    grid-column: span 1;
 }
-
 .current-weather-data {
     flex: 1;
     display: flex;
@@ -386,111 +375,99 @@ body {
     justify-content: center;
     text-align: center;
 }
-
 .temp-container {
     display: flex;
     align-items: flex-start;
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-3);
 }
-
 .temperature {
-    font-size: var(--text-5xl);
+    font-size: var(--text-4xl);
     font-weight: 700;
     line-height: 1;
     color: var(--color-gray-900);
 }
-
 .temp-unit {
-    font-size: var(--text-xl);
+    font-size: var(--text-lg);
     color: var(--color-gray-600);
     margin-left: var(--space-1);
 }
-
 .weather-condition {
-    font-size: var(--text-xl);
+    font-size: var(--text-lg);
     font-weight: 500;
     color: var(--color-secondary);
-    margin-bottom: var(--space-3);
+    margin-bottom: var(--space-2);
 }
-
 .wind-value {
     font-size: var(--text-base);
     color: var(--color-gray-600);
 }
-
 /* Hourly Forecast Panel */
 .hourly-forecast {
-    grid-column: span 8;
-    grid-row: span 1;
+    grid-column: span 1;
 }
-
 .sliderContainer {
     position: relative;
     width: 100%;
     flex: 1;
     display: flex;
     align-items: center;
+    padding: 0 var(--space-6);
 }
-
 .slider-wrapper {
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
     flex: 1;
     padding: var(--space-2);
-    margin: 0 var(--space-8);
+    width: 100%;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
 }
-
 .slider-wrapper::-webkit-scrollbar {
     display: none;
 }
-
 .hourly-list {
     display: flex;
-    gap: var(--space-4);
+    gap: var(--space-3);
+    width: fit-content;
 }
-
 .hour {
-    flex: 0 0 90px;
+    flex: 0 0 80px;
     background-color: var(--color-gray-100);
     border-radius: var(--radius-lg);
-    padding: var(--space-4);
+    padding: var(--space-3);
     text-align: center;
     transition: all var(--transition-normal);
+    scroll-snap-align: start;
 }
-
 .hour:hover {
     background-color: var(--color-gray-200);
     transform: translateY(-2px);
 }
-
 .hourTime {
     font-weight: 600;
     color: var(--color-gray-700);
     margin-bottom: var(--space-2);
+    font-size: var(--text-sm);
 }
-
 .hourTempVal {
-    font-size: var(--text-2xl);
+    font-size: var(--text-xl);
     font-weight: 700;
     color: var(--color-gray-900);
     margin-bottom: var(--space-2);
 }
-
 .hourPrecipitationChance {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--color-gray-600);
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
 .hourPrecipitationChance::before {
     content: '💧';
     margin-right: var(--space-1);
     font-size: 10px;
 }
-
 .slider-btn {
     width: 36px;
     height: 36px;
@@ -509,252 +486,541 @@ body {
     z-index: 2;
     box-shadow: var(--shadow-md);
 }
-
 .slider-btn:hover {
     background-color: var(--color-secondary-light);
 }
-
+.slider-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
 .slider-btn.left {
     left: 0;
 }
-
 .slider-btn.right {
     right: 0;
 }
-
 .arrow-icon {
     font-size: var(--text-lg);
     line-height: 1;
 }
-
 /* Weekly Forecast Panel */
 .weekly-forecast {
-    grid-column: span 12;
-    grid-row: span 1;
+    grid-column: span 1;
 }
-
 .weekly-list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-3);
 }
-
 #weeklyWeather li {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-    align-items: center;
-    padding: var(--space-4);
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "day-temp"
+        "weather-prec"
+        "sun";
+    gap: var(--space-3);
+    padding: var(--space-3);
     background-color: var(--color-gray-100);
     border-radius: var(--radius-lg);
     transition: all var(--transition-normal);
 }
-
 #weeklyWeather li:hover {
     background-color: var(--color-gray-200);
     transform: translateX(4px);
 }
-
 .dayStuff {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    grid-area: day-temp;
 }
-
 .weekDay {
-    font-size: var(--text-xl);
+    font-size: var(--text-lg);
     font-weight: 600;
     color: var(--color-gray-900);
 }
-
 .exactWeekDay {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--color-gray-600);
+    margin-left: var(--space-2);
 }
-
 .tempInfo {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: var(--space-3);
+    gap: var(--space-2);
 }
-
 .weekTempHigh {
-    font-size: var(--text-xl);
+    font-size: var(--text-lg);
     font-weight: 700;
     color: var(--color-accent);
 }
-
 .weekTempLow {
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     font-weight: 500;
     color: var(--color-gray-600);
 }
-
+.weather-prec-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-area: weather-prec;
+}
 .weekWeatherType {
-    text-align: center;
     font-weight: 500;
     color: var(--color-secondary);
+    font-size: var(--text-sm);
 }
-
 .weekPrecipitationChance {
     display: flex;
     align-items: center;
-    justify-content: center;
     color: var(--color-gray-700);
+    font-size: var(--text-sm);
 }
-
 .weekPrecipitationChance::before {
     content: '💧';
     margin-right: var(--space-2);
 }
-
 .sunInfo {
-    grid-column: span 2;
+    grid-area: sun;
     display: flex;
-    justify-content: space-around;
-    font-size: var(--text-sm);
+    justify-content: space-between;
+    font-size: var(--text-xs);
     color: var(--color-gray-600);
+    background-color: rgba(0, 0, 0, 0.03);
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
 }
-
 .sunrise::before {
     content: '🌅';
     margin-right: var(--space-1);
 }
-
 .sunset::before {
     content: '🌇';
     margin-right: var(--space-1);
 }
-
 .weekUVIndex {
     display: none; /* Hidden in this layout for simplicity */
 }
-
 /* Footer */
 .app-footer {
     background-color: var(--color-primary);
     color: var(--color-gray-400);
-    padding: var(--space-4);
+    padding: var(--space-3);
     text-align: center;
-    font-size: var(--text-sm);
-    height: 60px;
+    font-size: var(--text-xs);
+    min-height: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-
 .app-footer a {
     color: var(--color-gray-300);
     text-decoration: none;
     transition: color var(--transition-fast);
 }
-
 .app-footer a:hover {
     color: var(--color-white);
 }
-
 .credits {
     margin-top: var(--space-1);
     font-size: var(--text-xs);
 }
 
+/* Custom elements from JS */
+.loading-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    color: white;
+}
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: var(--radius-md);
+    z-index: 1001;
+    max-width: 300px;
+    box-shadow: var(--shadow-md);
+    font-size: var(--text-sm);
+}
+.notification.success {
+    background-color: rgba(39, 174, 96, 0.9);
+}
+.notification.error {
+    background-color: rgba(231, 76, 60, 0.9);
+}
+.notification.show {
+    animation: slideIn 0.3s forwards;
+}
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+.refresh-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-md);
+    margin-right: var(--space-2);
+}
+.refresh-btn:hover {
+    background-color: var(--color-primary-light);
+    transform: rotate(180deg);
+}
+.last-updated {
+    font-size: var(--text-xs);
+    color: var(--color-gray-600);
+    margin-top: var(--space-1);
+    text-align: center;
+}
+.weather-icon {
+    font-size: 1.2em;
+    margin-right: var(--space-1);
+    vertical-align: middle;
+}
+
 /* ================================================================
-    3. Responsive Design
+    3. Responsive Design - Mobile First Approach
    ================================================================ */
-@media (max-width: 1200px) {
-    .dashboard-grid {
-        grid-template-columns: repeat(6, 1fr);
-    }
-    
-    .current-weather {
-        grid-column: span 2;
-    }
-    
-    .hourly-forecast {
-        grid-column: span 4;
-    }
-    
-    .weekly-forecast {
-        grid-column: span 6;
-    }
-}
 
-@media (max-width: 992px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-    }
-    
-    .current-weather,
-    .hourly-forecast,
-    .weekly-forecast {
-        grid-column: span 1;
-    }
-}
-
-@media (max-width: 768px) {
+/* Small tablets and large phones (768px and up) */
+@media (min-width: 768px) {
     .app-container {
-        flex-direction: column;
+        flex-direction: row;
     }
     
     .sidebar {
-        width: 100%;
-        max-height: 300px;
-        overflow-y: auto;
+        width: 300px;
+        max-height: none;
+        padding: var(--space-6);
+    }
+    
+    .brand {
+        margin-bottom: var(--space-6);
+        padding-bottom: var(--space-6);
+    }
+    
+    #logo {
+        width: 36px;
+        height: 36px;
+        margin-right: var(--space-3);
+    }
+    
+    #websiteName {
+        font-size: var(--text-2xl);
+    }
+    
+    #savedLocations {
+        max-height: none;
+    }
+    
+    #locationList {
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+    
+    .weather-item {
+        flex: 0 0 auto;
+        max-width: none;
+        min-width: 0;
     }
     
     .main-content {
-        padding: var(--space-4);
+        padding: var(--space-6);
     }
     
-    #weeklyWeather li {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto auto;
-        padding: var(--space-4);
-        gap: var(--space-3);
-    }
-    
-    .dayStuff {
-        grid-column: span 1;
-    }
-    
-    .tempInfo {
-        grid-column: span 1;
-        justify-content: flex-end;
-    }
-    
-    .weekWeatherType {
-        grid-column: span 1;
-        text-align: left;
-    }
-    
-    .weekPrecipitationChance {
-        grid-column: span 1;
-        justify-content: flex-end;
-    }
-    
-    .sunInfo {
-        grid-column: span 2;
-        flex-direction: column;
-        gap: var(--space-2);
-        align-items: flex-start;
-    }
-}
-
-@media (max-width: 480px) {
-    .temp-container {
-        flex-direction: column;
-        align-items: center;
+    .location-title {
+        font-size: var(--text-3xl);
+        width: auto;
     }
     
     .dashboard-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--space-4);
+        margin-bottom: var(--space-8);
     }
     
-    .save-location-btn {
-        align-self: flex-end;
-        margin-top: calc(-1 * var(--space-10));
+    #weeklyWeather li {
+        grid-template-columns: 3fr 2fr;
+        grid-template-areas:
+            "day-temp weather-prec"
+            "sun sun";
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-6);
+    }
+    
+    .current-weather {
+        grid-column: span 1;
+    }
+    
+    .hourly-forecast {
+        grid-column: span 3;
+    }
+    
+    .weekly-forecast {
+        grid-column: span 4;
+    }
+}
+
+/* Medium devices (tablets, 992px and up) */
+@media (min-width: 992px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(12, 1fr);
+    }
+    
+    .current-weather {
+        grid-column: span 4;
+    }
+    
+    .hourly-forecast {
+        grid-column: span 8;
+    }
+    
+    .weekly-forecast {
+        grid-column: span 12;
+    }
+    
+    #weeklyWeather li {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+        grid-template-areas: "day temp weather prec sun";
+        align-items: center;
+    }
+    
+    .dayStuff {
+        grid-area: day;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    
+    .tempInfo {
+        grid-area: temp;
+        justify-content: center;
+    }
+    
+    .weekWeatherType {
+        grid-area: weather;
+        text-align: center;
+    }
+    
+    .weekPrecipitationChance {
+        grid-area: prec;
+        justify-content: center;
+    }
+    
+    .sunInfo {
+        grid-area: sun;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: transparent;
+        padding: 0;
+    }
+}
+
+/* Large devices (desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .sidebar {
+        width: 350px;
+    }
+    
+    .main-content {
+        padding: var(--space-8);
+    }
+    
+    .slider-wrapper {
+        margin: 0 var(--space-8);
+    }
+    
+    .hour {
+        flex: 0 0 90px;
+        padding: var(--space-4);
+    }
+    
+    .temp-container {
+        margin-bottom: var(--space-4);
+    }
+    
+    .temperature {
+        font-size: var(--text-5xl);
+    }
+    
+    .weather-condition {
+        font-size: var(--text-xl);
+        margin-bottom: var(--space-3);
+    }
+}
+
+/* Extra large devices (large desktops, 1400px and up) */
+@media (min-width: 1400px) {
+    .app-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        box-shadow: var(--shadow-xl);
+    }
+    
+    .sidebar {
+        width: 400px;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+    .remove-btn {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .slider-btn {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .save-location-btn,
+    .refresh-btn {
+        width: 46px;
+        height: 46px;
+    }
+    
+    .suggestion-item {
+        padding: var(--space-4);
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: var(--color-gray-900);
+        color: var(--color-gray-200);
+    }
+    
+    .main-content {
+        background-color: var(--color-gray-800);
+    }
+    
+    .panel {
+        background-color: var(--color-gray-700);
+        color: var(--color-gray-200);
+    }
+    
+    .panel-title {
+        color: var(--color-gray-300);
+        border-bottom-color: var(--color-gray-600);
+    }
+    
+    .location-title {
+        color: var(--color-white);
+    }
+    
+    .temperature {
+        color: var(--color-white);
+    }
+    
+    .temp-unit {
+        color: var(--color-gray-400);
+    }
+    
+    .hour, 
+    #weeklyWeather li {
+        background-color: var(--color-gray-800);
+    }
+    
+    .hour:hover,
+    #weeklyWeather li:hover {
+        background-color: var(--color-gray-700);
+    }
+    
+    .hourTime,
+    .weekDay {
+        color: var(--color-gray-300);
+    }
+    
+    .hourTempVal {
+        color: var(--color-white);
+    }
+    
+    .suggestion-item {
+        color: var(--color-gray-800);
+    }
+}
+
+/* Print styles */
+@media print {
+    .sidebar,
+    .app-footer,
+    .slider-btn,
+    .save-location-btn,
+    .refresh-btn,
+    .remove-btn {
+        display: none !important;
+    }
+    
+    .app-container {
+        display: block;
+    }
+    
+    .main-content {
+        padding: 0;
+    }
+    
+    .dashboard-grid {
+        display: block;
+    }
+    
+    .panel {
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+    
+    .hour {
+        border: 1px solid #ddd;
+    }
+    
+    #weeklyWeather li {
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
     }
 }
