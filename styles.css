@@ -100,6 +100,7 @@ body {
     line-height: 1.5;
     color: var(--color-gray-800);
     background-color: var(--color-gray-100);
+    max-width: 100vw;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -112,6 +113,9 @@ body {
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 60px); /* Subtract footer height */
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
 }
 /* Sidebar Navigation */
 .sidebar {
@@ -293,9 +297,11 @@ body {
 .main-content {
     flex: 1;
     background-color: var(--color-gray-100);
-    padding: var(--space-4);
+    padding: var(--space-3);
     overflow-y: auto;
     width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 .dashboard-header {
     display: flex;
@@ -344,6 +350,8 @@ body {
     grid-template-columns: 1fr;
     gap: var(--space-4);
     width: 100%;
+    max-width: 100%;
+    overflow: hidden;
 }
 .panel {
     background-color: var(--color-white);
@@ -352,7 +360,9 @@ body {
     padding: var(--space-4);
     display: flex;
     flex-direction: column;
+    max-width: 100%;
     width: 100%;
+    overflow: hidden;
 }
 .panel-title {
     font-family: var(--font-heading);
